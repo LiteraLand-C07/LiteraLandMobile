@@ -1,11 +1,11 @@
 ﻿# :books: LiteraLand Mobile
 
 ## :busts_in_silhouette: Nama Anggota :busts_in_silhouette:
-- Caesar Syahru Ramadhan
-- M. Alif Al Hakim
-- Farrel Muhammad Hanau
-- Michelle Angelica Santoso
-- Salma Nurul ‘Aziz
+- Caesar Syahru Ramadhan | 2206819092
+- M. Alif Al Hakim | 2206081250
+- Farrel Muhammad Hanau | 2206081566
+- Michelle Angelica Santoso | 2206026031
+- Salma Nurul ‘Aziz | 2206028661
 
 ## :book: Cerita Aplikasi dan Manfaatnya :book:
 Nama Aplikasi : LiteraLand
@@ -38,13 +38,13 @@ Pada modul ini admin akan menerima pesan request yang telah dikirimkan user pada
 
 ## :computer: Role atau peran user :computer:
 ### Guest
-- Pengguna yang belum memiliki akun atau belom login ke website
+- Pengguna yang belum memiliki akun atau belom login ke aplikasi
 - User Guest bisa mengakses halaman browse buku untuk melihat daftar buku yang ada pada database
 - User Guest juga bisa mengakses halaman detail buku setelah meng-klik judul buku pada halaman browse buku
 - User Guest juga bisa mengakses halaman rankingBuku untuk melihat list-list buku dari user lain (Guest tidak bisa menambahkan list buku sendiri)
 
 ### User
-- Pengguna yang sudah memilki akun dan sudah login ke website
+- Pengguna yang sudah memilki akun dan sudah login ke aplikasi
 - User bisa mengakses fitur Koleksi buku 
 - User bisa membaca buku yang terdapat dalam daftar koleksi
 - User bisa mengakses halaman rankingBuku dan mempost list buku favorite-nya
