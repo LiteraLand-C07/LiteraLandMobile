@@ -17,18 +17,23 @@ LiteraLand adalah aplikasi koleksi buku yang memungkinkan pengguna untuk membaca
 ## :file_folder: Daftar Modul yang Akan Diimplementasikan :file_folder:
 
 ### :mag_right: Modul Browse Buku :mag_right:
+##### Oleh : Michelle Angelica Santoso
 Pada modul ini akan ditampilkan semua buku yang terdapat di database projek. Selain itu, pada modul ini user dapat mengirimkan permintaan untuk menambahkan buku di database sehingga mereka dapat menambahkan buku tersebut ke koleksi.
 
 ### :bookmark: Modul Koleksi Buku :bookmark:
+##### Oleh : M.Alif Al Hakim
 Pada modul ini user dapat menambahkan semua buku yang ingin mereka tambahkan ke daftar koleksi. User dapat menambahkan buku dengan meng-click buku pada halaman browse buku lalu menambahkannya ke daftar koleksi dengan menekan tombol `Add to Collections`. Pada modul ini user dapat menyimpan progres baca, status baca, dan rating dari buku yang ada pada daftar koleksi mereka. Selain itu, mereka dapat membaca buku yang ada dalam daftar koleksi mereka.
 
 ### :star: Model BOOKLIST :star:
+##### Oleh : Salma Nurul ‘Aziz
 Pada modul ini setiap user dapat memposting daftar buku favorite menurut pendapat mereka. Selain itu, pada modul ini user juga dapat melihat list buku favorite dari user lain sehingga dapat menjadi referensi untuk membaca buku lain.
 
 ### :page_with_curl: Model Review Buku :page_with_curl:
+##### Oleh : Caesar Syahru Ramadhan
 Pada modul ini setiap user dapat memposting review mengenai suatu buku. User dapat memberikan komentar atau pendapat dan rating dari 1 sampai 5 untuk buku yang mereka review. User juga dapat melihat review dari user lain mengenai buku tersebut sehingga dapat menjadi referensi dalam memilih buku.
 
 ### :gem: Modul Admin :gem:
+##### Oleh : Farrel Muhammad Hanau
 Pada modul ini admin akan menerima pesan request yang telah dikirimkan user pada modul `Browse Buku`. Admin dapat menambahkan buku yang telah di-request oleh user ke database projek sehingga semua user dapat menambahkan buku ke daftar koleksi, melakukan review terhadap buku tersebut, atau memasukkannya ke list rekomendasi buku.
 
 ## :computer: Role atau peran user :computer:
