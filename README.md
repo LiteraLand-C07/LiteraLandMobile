@@ -70,4 +70,4 @@ Pada modul ini admin akan menerima pesan request yang telah dikirimkan user pada
 - Menampilkan data yang telah dikonversi ke aplikasi dengan FutureBuilder.
 
 ## :link: Tautan Berita Acara :link:
-Link : ristek.link/BeritaAcaraC07
+[Berita Acara](https://univindonesia-my.sharepoint.com/:x:/g/personal/salma_nurul21_office_ui_ac_id/ETehkje9j1ZCi3nBw_YHBLABM-fvB8CRdlZTJTXz2K-64Q?e=bXYj0U)
