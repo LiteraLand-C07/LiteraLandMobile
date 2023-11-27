@@ -60,7 +60,7 @@ Pada modul ini admin akan menerima pesan request yang telah dikirimkan user pada
 ### Admin
 - Pengguna yang memiiki seluruh hak akses dari user dan hak akses khusus
 - Admin dapat menerima pesan request buku dari user.
-- Admin dapat menambahkan buku berdasarkan request user ke database 
+- Admin dapat menambahkan buku berdasarkan request user ke database.
 
 ## :link: Alur Pengintegrasian dengan Aplikasi Web :link:
 - Menambahkan dependensi http ke proyek; dependensi ini digunakan untuk bertukar HTTP request.
