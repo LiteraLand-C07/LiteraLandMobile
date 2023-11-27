@@ -40,7 +40,7 @@ class Fields {
     int pageCount;
     String genre;
     String isbn;
-    Language language;
+    String language;
     DateTime publishedDate;
 
     Fields({
@@ -63,7 +63,7 @@ class Fields {
         pageCount: json["page_count"],
         genre: json["genre"],
         isbn: json["ISBN"],
-        language: languageValues.map[json["language"]]!,
+        language: json["language"]!,
         publishedDate: DateTime.parse(json["published_date"]),
     );
 
@@ -75,18 +75,11 @@ class Fields {
         "page_count": pageCount,
         "genre": genre,
         "ISBN": isbn,
-        "language": languageValues.reverse[language],
+        "language": language,
         "published_date": "${publishedDate.year.toString().padLeft(4, '0')}-${publishedDate.month.toString().padLeft(2, '0')}-${publishedDate.day.toString().padLeft(2, '0')}",
     };
 }
 
-enum Language {
-    ENGLISH
-}
-
-final languageValues = EnumValues({
-    "English": Language.ENGLISH
-});
 
 enum Model {
     SHARED_MODELS_BOOK
