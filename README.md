@@ -1,7 +1,7 @@
 ﻿# :books: LiteraLand Mobile
-[![Develop](https://github.com/LiteraLand-C07/LiteraLandMobile/actions/workflows/dev.yml/badge.svg)](https://github.com/reflekt-io/echo-appcenter/actions/workflows/develop.yml)
-[![Pre-Release](https://github.com/LiteraLand-C07/LiteraLandMobile/actions/workflows/pre-release.yml/badge.svg)](https://github.com/reflekt-io/echo-appcenter/actions/workflows/pre-release.yml)
-[![Release](https://github.com/LiteraLand-C07/LiteraLandMobile/actions/workflows/release.yml/badge.svg)](https://github.com/reflekt-io/echo-appcenter/actions/workflows/release.yml)
+[![Develop](https://github.com/LiteraLand-C07/LiteraLandMobile/actions/workflows/dev.yml/badge.svg)](https://github.com/LiteraLand-C07/LiteraLandMobile/actions/workflows/develop.yml)
+[![Pre-Release](https://github.com/LiteraLand-C07/LiteraLandMobile/actions/workflows/pre-release.yml/badge.svg)](https://github.com/LiteraLand-C07/LiteraLandMobile/actions/workflows/pre-release.yml)
+[![Release](https://github.com/LiteraLand-C07/LiteraLandMobile/actions/workflows/release.yml/badge.svg)](https://github.com/LiteraLand-C07/LiteraLandMobile/actions/workflows/release.yml)
 [![Build status](https://build.appcenter.ms/v0.1/apps/e89189aa-b1fa-4951-b3f1-3617329b7d2e/branches/main/badge)](https://appcenter.ms)
 
 **Link App**: https://install.appcenter.ms/orgs/literaland/apps/literalandmobile/distribution_groups/public
