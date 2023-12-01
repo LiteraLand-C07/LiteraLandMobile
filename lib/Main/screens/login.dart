@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:litera_land_mobile/Main/screens/home.dart';
+import 'package:litera_land_mobile/collections/screens/mycollection.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -81,10 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                   String uname = response['username'];
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => const MyHomePage(
-                              title: 'My Home Page',
-                            )),
+                    MaterialPageRoute(builder: (context) => const ItemPage()),
                   );
                   ScaffoldMessenger.of(context)
                     ..hideCurrentSnackBar()
