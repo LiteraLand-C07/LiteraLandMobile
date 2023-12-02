@@ -4,7 +4,7 @@ import 'package:litera_land_mobile/BrowseBooks/models/book.dart'; // Update with
 class BookListTile extends StatelessWidget {
   final Book book;
 
-  BookListTile({required this.book});
+  const BookListTile({super.key, required this.book});
 
   @override
   Widget build(BuildContext context) {

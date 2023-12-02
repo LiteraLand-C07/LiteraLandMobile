@@ -8,11 +8,13 @@ import 'package:litera_land_mobile/BrowseBooks/models/book.dart'; // Import the 
 import 'package:litera_land_mobile/BrowseBooks/widgets/book_list_tile.dart'; // Import the BookListTile widget
 
 class BrowseBooksPage extends StatefulWidget {
+  const BrowseBooksPage({super.key});
+
   @override
-  _BrowseBooksPageState createState() => _BrowseBooksPageState();
+  BrowseBooksPageState createState() => BrowseBooksPageState();
 }
 
-class _BrowseBooksPageState extends State<BrowseBooksPage> {
+class BrowseBooksPageState extends State<BrowseBooksPage> {
   Future<List<Book>> fetchBooks() async {
     var url = Uri.parse('https://literaland-c07-tk.pbp.cs.ui.ac.id/authentication/json/');
     var response = await http.get(url, headers: {"Content-Type": "application/json"});
@@ -30,7 +32,7 @@ class _BrowseBooksPageState extends State<BrowseBooksPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 103, 101, 101),
+      backgroundColor: const Color.fromARGB(255, 103, 101, 101),
       appBar: AppBar(
         title: const Text('Browse Books'),
         backgroundColor: const Color.fromARGB(255, 15, 15, 15), // Dark themed AppBar color

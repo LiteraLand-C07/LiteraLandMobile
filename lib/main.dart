@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           ),
           home: const LoginPage(),
           routes: {
-            '/browseBooks': (context) => BrowseBooksPage(), // Define the route for BrowseBooksPage
+            '/browseBooks': (context) => const BrowseBooksPage(), // Define the route for BrowseBooksPage
           }),
     );
   }
