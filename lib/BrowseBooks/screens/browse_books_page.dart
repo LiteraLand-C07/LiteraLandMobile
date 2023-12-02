@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:provider/provider.dart';
-import 'package:pbp_django_auth/pbp_django_auth.dart';
-import 'package:litera_land_mobile/collections/models/collection.dart';
 import 'package:litera_land_mobile/BrowseBooks/models/book.dart'; // Import the Book class
 import 'package:litera_land_mobile/BrowseBooks/widgets/book_list_tile.dart'; // Import the BookListTile widget
 
@@ -82,7 +79,7 @@ class BrowseBooksPageState extends State<BrowseBooksPage> {
                     textStyle: const TextStyle(fontSize: 16), // Adjust text style of the button
                   ),
                   onPressed: () {
-                    // TODO: Implement the action when the button is pressed
+                    // implement nanti
                   },
                   child: const Text('Request new book'),
                 ),

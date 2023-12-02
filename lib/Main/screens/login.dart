@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:litera_land_mobile/BrowseBooks/screens/browse_books_page.dart';
-import 'package:litera_land_mobile/collections/screens/mycollection.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
