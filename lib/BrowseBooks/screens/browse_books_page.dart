@@ -13,28 +13,24 @@ class BrowseBooksPage extends StatefulWidget {
 }
 
 class _BrowseBooksPageState extends State<BrowseBooksPage> {
-  Future<List<BookCollection>> fetchBooks() async {
-    final request = context.watch<CookieRequest>();
-    final response = await request.get('https://www.googleapis.com/books/v1/volumes?q=flutter&fields=items(volumeInfo(title,authors,categories))');
+  Future<List<Book>> fetchBooks() async {
+    var url = Uri.parse('https://literaland-c07-tk.pbp.cs.ui.ac.id/authentication/json/');
+    var response = await http.get(url, headers: {"Content-Type": "application/json"});
 
     if (response.statusCode == 200) {
-      final List<dynamic> booksJson = json.decode(response.body)['items'];
-      // Assuming your BookCollection model has a constructor that accepts title, authors, and categories (genres)
-      return booksJson.map((jsonItem) => BookCollection.fromJson({
-        'title': jsonItem['volumeInfo']['title'],
-        'authors': jsonItem['volumeInfo']['authors'],
-        'categories': jsonItem['volumeInfo']['categories']
-      })).toList();
+      final List<dynamic> booksJson = json.decode(response.body);
+      return booksJson.map((jsonItem) => Book.fromJson(jsonItem)).toList();
     } else {
       throw Exception('Failed to load books');
     }
   }
 
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 67, 66, 66),
+      backgroundColor: Color.fromARGB(255, 103, 101, 101),
       appBar: AppBar(
         title: const Text('Browse Books'),
         backgroundColor: const Color.fromARGB(255, 15, 15, 15), // Dark themed AppBar color
@@ -42,7 +38,8 @@ class _BrowseBooksPageState extends State<BrowseBooksPage> {
       ),
       body: Column(
         children: [
-          FutureBuilder<List<BookCollection>>(
+          Expanded(
+            child: FutureBuilder<List<Book>>(
             future: fetchBooks(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -56,20 +53,15 @@ class _BrowseBooksPageState extends State<BrowseBooksPage> {
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
                     final book = snapshot.data![index];
-                    return ListTile(
-                      title: Text(book.title),
-                      subtitle: Text('Subtitle'),
-                      onTap: () {
-                        // TODO: Navigate to book details page
-                        // Add your onTap action here
-                      },
+                    return BookListTile(
+                      book: book,
                     );
                   },
                 );
               }
             },
+            ),
           ),
-          Spacer(),
           Padding(
             padding: const EdgeInsets.all(16.0), // Add padding around the text and button
             child: Column(
