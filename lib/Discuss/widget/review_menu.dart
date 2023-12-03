@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:litera_land_mobile/Discuss/models/review_Data.dart'; // Update with correct path
+import 'package:litera_land_mobile/Discuss/models/review_data.dart'; // Update with correct path
 
 class ReviewBookWidget extends StatelessWidget {
   final ReviewBook reviewBook;
