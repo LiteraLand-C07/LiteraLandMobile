@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:litera_land_mobile/Main/widgets/bottom_navbar.dart';
 import 'package:litera_land_mobile/collections/models/detail_book.dart';
 import 'package:litera_land_mobile/collections/widgets/card_detail.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -55,6 +56,9 @@ class _BookDetailPageState extends State<BookDetailPage> {
           title: const Text('Book Detail'),
           backgroundColor: const Color.fromARGB(255, 15, 15, 15),
           foregroundColor: Colors.white,
+        ),
+        bottomNavigationBar: const MyBottomNavigationBar(
+          selectedIndex: 2,
         ),
         //drawer: const LeftDrawer(),
         body: FutureBuilder(
