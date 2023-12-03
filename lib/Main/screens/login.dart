@@ -1,8 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
-
-
 import 'package:flutter/material.dart';
 import 'package:litera_land_mobile/BrowseBooks/screens/browse_books_page.dart';
+import 'package:litera_land_mobile/Main/screens/register.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -82,7 +81,8 @@ class _LoginPageState extends State<LoginPage> {
                   String uname = response['username'];
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const BrowseBooksPage()),
+                    MaterialPageRoute(
+                        builder: (context) => const BrowseBooksPage()),
                   );
                   ScaffoldMessenger.of(context)
                     ..hideCurrentSnackBar()
@@ -108,6 +108,16 @@ class _LoginPageState extends State<LoginPage> {
               },
               child: const Text('Login'),
             ),
+            const SizedBox(height: 24.0),
+            ElevatedButton(
+              onPressed: () async {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const RegisterPage()),
+                );
+              },
+              child: const Text('Register'),
+            )
           ],
         ),
       ),
