@@ -1,4 +1,10 @@
 ﻿# :books: LiteraLand Mobile
+[![Develop](https://github.com/LiteraLand-C07/LiteraLandMobile/actions/workflows/dev.yml/badge.svg)](https://github.com/LiteraLand-C07/LiteraLandMobile/actions/workflows/develop.yml)
+[![Pre-Release](https://github.com/LiteraLand-C07/LiteraLandMobile/actions/workflows/pre-release.yml/badge.svg)](https://github.com/LiteraLand-C07/LiteraLandMobile/actions/workflows/pre-release.yml)
+[![Release](https://github.com/LiteraLand-C07/LiteraLandMobile/actions/workflows/release.yml/badge.svg)](https://github.com/LiteraLand-C07/LiteraLandMobile/actions/workflows/release.yml)
+[![Build status](https://build.appcenter.ms/v0.1/apps/e89189aa-b1fa-4951-b3f1-3617329b7d2e/branches/main/badge)](https://appcenter.ms)
+
+**Link App**: https://install.appcenter.ms/orgs/literaland/apps/literalandmobile/distribution_groups/public
 
 ## :busts_in_silhouette: Nama Anggota :busts_in_silhouette:
 - Caesar Syahru Ramadhan | 2206819092
@@ -54,7 +60,7 @@ Pada modul ini admin akan menerima pesan request yang telah dikirimkan user pada
 ### Admin
 - Pengguna yang memiiki seluruh hak akses dari user dan hak akses khusus
 - Admin dapat menerima pesan request buku dari user.
-- Admin dapat menambahkan buku berdasarkan request user ke database 
+- Admin dapat menambahkan buku berdasarkan request user ke database.
 
 ## :link: Alur Pengintegrasian dengan Aplikasi Web :link:
 - Menambahkan dependensi http ke proyek; dependensi ini digunakan untuk bertukar HTTP request.
@@ -64,4 +70,4 @@ Pada modul ini admin akan menerima pesan request yang telah dikirimkan user pada
 - Menampilkan data yang telah dikonversi ke aplikasi dengan FutureBuilder.
 
 ## :link: Tautan Berita Acara :link:
-Link : ristek.link/BeritaAcaraC07
+[Berita Acara](https://univindonesia-my.sharepoint.com/:x:/g/personal/salma_nurul21_office_ui_ac_id/ETehkje9j1ZCi3nBw_YHBLABM-fvB8CRdlZTJTXz2K-64Q?e=bXYj0U)
