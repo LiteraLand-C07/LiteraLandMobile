@@ -1,18 +1,20 @@
 // ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/material.dart';
+import 'package:litera_land_mobile/Main/widgets/bottom_navbar.dart';
+import 'package:litera_land_mobile/Main/widgets/left_drawer.dart';
 import 'package:litera_land_mobile/collections/models/collection.dart';
 import 'package:litera_land_mobile/collections/widgets/card_collection.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 
-class ItemPage extends StatefulWidget {
-  const ItemPage({Key? key}) : super(key: key);
+class CollectionPage extends StatefulWidget {
+  const CollectionPage({Key? key}) : super(key: key);
 
   @override
-  _ItemPageState createState() => _ItemPageState();
+  _CollectionPageState createState() => _CollectionPageState();
 }
 
-class _ItemPageState extends State<ItemPage> {
+class _CollectionPageState extends State<CollectionPage> {
   Future<List<BookCollection>> fetchProduct() async {
     final request = context.watch<CookieRequest>();
     final response = await request.get(
@@ -37,7 +39,10 @@ class _ItemPageState extends State<ItemPage> {
           backgroundColor: const Color.fromARGB(255, 15, 15, 15),
           foregroundColor: Colors.white,
         ),
-        //drawer: const LeftDrawer(),
+        drawer: const LeftDrawer(),
+        bottomNavigationBar: const MyBottomNavigationBar(
+          selectedIndex: 2,
+        ),
         body: FutureBuilder(
             future: fetchProduct(),
             builder: (context, AsyncSnapshot snapshot) {
