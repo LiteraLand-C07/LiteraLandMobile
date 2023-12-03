@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:litera_land_mobile/Discuss/models/review_Data.dart'; // Update with correct path
+import 'package:litera_land_mobile/Discuss/models/review_data.dart'; // Update with correct path
 
 class ReviewBookWidget extends StatelessWidget {
   final ReviewBook reviewBook;
@@ -19,13 +19,15 @@ class ReviewBookWidget extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        ...reviewBook.instructions.map((instruction) => Text(
-              instruction,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16.0,
-              ),
-            )).toList(),
+        ...reviewBook.instructions
+            .map((instruction) => Text(
+                  instruction,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.0,
+                  ),
+                ))
+            .toList(),
       ],
     );
   }
