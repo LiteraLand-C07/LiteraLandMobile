@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:litera_land_mobile/BookLists/widgets/book_lists_widget.dart';
-import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:litera_land_mobile/BookLists/models/book_lists_models.dart';
