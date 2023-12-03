@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:litera_land_mobile/Main/screens/login.dart';
 import 'package:litera_land_mobile/BrowseBooks/screens/browse_books_page.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
@@ -21,18 +20,16 @@ class MyApp extends StatelessWidget {
         return request;
       },
       child: MaterialApp(
-          title: 'Flutter App',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
-            useMaterial3: true,
-            textTheme: GoogleFonts.tiltNeonTextTheme(
-              Theme.of(context).textTheme,
-            ),
+        title: 'Flutter App',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
+          useMaterial3: true,
+          textTheme: GoogleFonts.tiltNeonTextTheme(
+            Theme.of(context).textTheme,
           ),
-          home: const LoginPage(),
-          routes: {
-            '/browseBooks': (context) => const BrowseBooksPage(), // Define the route for BrowseBooksPage
-          }),
+        ),
+        home: const BrowseBooksPage(),
+      ),
     );
   }
 }
