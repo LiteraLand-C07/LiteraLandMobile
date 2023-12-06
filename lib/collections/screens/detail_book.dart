@@ -17,6 +17,7 @@ class BookDetailPage extends StatefulWidget {
 }
 
 class _BookDetailPageState extends State<BookDetailPage> {
+  
   Future<List<dynamic>> fetchProduct() async {
     final request = context.watch<CookieRequest>();
     final response = await request.get(
@@ -85,6 +86,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                           child: DetailBookWidget(
                         book: snapshot.data[0],
                         linkCover: snapshot.data[1],
+                        idBook: widget.bookId,
                       )));
                 }
               }
