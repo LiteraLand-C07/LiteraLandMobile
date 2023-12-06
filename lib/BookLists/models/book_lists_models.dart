@@ -34,7 +34,6 @@ class BookLists {
 
 class Fields {
     String name;
-    int user;
     String access;
     String description;
     String image;
@@ -42,7 +41,6 @@ class Fields {
 
     Fields({
         required this.name,
-        required this.user,
         required this.access,
         required this.description,
         required this.image,
@@ -51,7 +49,6 @@ class Fields {
 
     factory Fields.fromJson(Map<String, dynamic> json) => Fields(
         name: json["name"],
-        user: json["user"],
         access: json["access"],
         description: json["description"],
         image: json["image"],
@@ -60,7 +57,6 @@ class Fields {
 
     Map<String, dynamic> toJson() => {
         "name": name,
-        "user": user,
         "access": access,
         "description": description,
         "image": image,
