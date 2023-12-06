@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:litera_land_mobile/BookLists/screens/book_list_form.dart';
 import 'package:litera_land_mobile/BookLists/widgets/book_lists_widget.dart';
 import 'package:litera_land_mobile/Main/widgets/bottom_navbar.dart';
 import 'package:litera_land_mobile/Main/widgets/left_drawer.dart';
@@ -81,6 +82,17 @@ class _BookListsPageState extends State<BookListsPage> {
               }
             }
           }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Handle navigation to the page for adding a new product
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const BookListFormPage()), // Replace AddProductPage with your actual page
+          );
+        },
+        backgroundColor: Colors.blue,
+        child: const Icon(Icons.add), // Choose a color for the button
+      ),
     );
   }
 }
