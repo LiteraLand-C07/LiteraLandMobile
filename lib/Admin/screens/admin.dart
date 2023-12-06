@@ -19,6 +19,7 @@ class AdminPage extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 15, 15, 15), // Dark themed AppBar color
         foregroundColor: Colors.white, // Text color for AppBar
       ),
+      // drawer: ,
 
       body: Flex (
         direction: Axis.horizontal,
