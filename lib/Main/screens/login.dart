@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:litera_land_mobile/BrowseBooks/screens/browse_books_page.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:litera_land_mobile/Admin/screens/admin.dart';
 
 void main() {
   runApp(const LoginApp());
@@ -82,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                   String uname = response['username'];
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const BrowseBooksPage()),
+                    MaterialPageRoute(builder: (context) => const AdminPage()),
                   );
                   ScaffoldMessenger.of(context)
                     ..hideCurrentSnackBar()
