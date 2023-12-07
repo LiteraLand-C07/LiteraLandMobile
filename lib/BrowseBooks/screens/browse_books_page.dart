@@ -123,7 +123,11 @@ class BrowseBooksPageState extends State<BrowseBooksPage> {
                     ),
                     onPressed: () {
                       final request = Provider.of<CookieRequest>(context, listen: false);
-                      showRequestBookDialog(context, request);
+                      if (request.loggedIn) {
+                        showRequestBookDialog(context, request);
+                      } else {
+                        _showLoginAlert(context);  // Menampilkan dialog atau mengarahkan ke halaman login
+                      }
                     },
                     child: const Text('Request new book'),
                   ),

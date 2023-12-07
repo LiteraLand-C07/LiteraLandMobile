@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:litera_land_mobile/BrowseBooks/models/book.dart'; // Update with correct path
-import 'package:litera_land_mobile/collections/models/detail_book.dart';
 import 'package:litera_land_mobile/collections/screens/detail_book.dart';
 
 

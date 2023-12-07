@@ -1,9 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:litera_land_mobile/BrowseBooks/widgets/success_dialog.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
-import 'package:provider/provider.dart';  // Pastikan Anda mengimpor package provider
 
 // Tambahkan parameter CookieRequest pada fungsi
 void showRequestBookDialog(BuildContext context, CookieRequest request) {
