@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:litera_land_mobile/BrowseBooks/models/book.dart'; // Import the Book class
+import 'package:litera_land_mobile/BrowseBooks/screens/user_requests_page.dart';
 import 'package:litera_land_mobile/BrowseBooks/widgets/book_list_tile.dart';
+import 'package:litera_land_mobile/BrowseBooks/widgets/request_book_dialog.dart';
+import 'package:litera_land_mobile/Main/screens/login.dart';
 import 'package:litera_land_mobile/Main/widgets/bottom_navbar.dart';
-import 'package:litera_land_mobile/Main/widgets/left_drawer.dart'; // Import the BookListTile widget
+import 'package:litera_land_mobile/Main/widgets/left_drawer.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart'; // Import the BookListTile widget
+
 
 class BrowseBooksPage extends StatefulWidget {
   const BrowseBooksPage({super.key});
@@ -28,8 +34,36 @@ class BrowseBooksPageState extends State<BrowseBooksPage> {
     }
   }
 
+  void _showLoginAlert(BuildContext context) {
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Login Required'),
+          content: const Text('You need to be logged in to view your requests.'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Login'),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPage()));
+                // Assuming LoginPage() is the page where the user can login.
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 103, 101, 101),
         appBar: AppBar(
@@ -69,30 +103,48 @@ class BrowseBooksPageState extends State<BrowseBooksPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(
-                  16.0), // Add padding around the text and button
+              padding: const EdgeInsets.symmetric(
+                  vertical: 16.0, horizontal: 16.0), // Menambahkan padding horizontal
               child: Column(
                 children: [
                   const Text(
                     'Your book is not here?',
                     style: TextStyle(
-                      color:
-                          Colors.white70, // Lighter text color for visibility
-                      fontSize: 18, // Adjust the font size as needed
+                      color: Colors.white70,
+                      fontSize: 18,
                     ),
                   ),
-                  const SizedBox(height: 16), // Space between text and button
+                  const SizedBox(height: 8), // Mengurangi ukuran spasi
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.black,
-                      backgroundColor: Colors.white, // Button text color
-                      textStyle: const TextStyle(
-                          fontSize: 16), // Adjust text style of the button
+                      backgroundColor: Colors.white,
+                      textStyle: const TextStyle(fontSize: 16),
                     ),
                     onPressed: () {
-                      // implement nanti
+                      final request = Provider.of<CookieRequest>(context, listen: false);
+                      showRequestBookDialog(context, request);
                     },
                     child: const Text('Request new book'),
+                  ),
+                  const SizedBox(height: 16), // Menambahkan spasi antara tombol
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.black, // Warna teks tombol
+                      backgroundColor: Colors.white, // Warna latar tombol
+                      textStyle: const TextStyle(fontSize: 16),
+                    ),
+                    onPressed: () {
+                      // Menggunakan Navigator untuk berpindah ke halaman UserRequestsPage
+                      if(request.loggedIn){
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => UserRequestsPage(request: Provider.of<CookieRequest>(context, listen: false)),
+                        ));
+                      } else {
+                        _showLoginAlert(context);
+                      }
+                    },
+                    child: const Text('View My Requests'),
                   ),
                 ],
               ),
