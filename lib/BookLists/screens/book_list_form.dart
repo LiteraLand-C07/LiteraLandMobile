@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:http/http.dart' as http;
 
+const List<String> list = <String>['Public', 'Private'];
+
 class BookListFormPage extends StatefulWidget {
   const BookListFormPage({super.key});
 
@@ -19,6 +21,7 @@ class _BookListFormPageState extends State<BookListFormPage> {
   String _description = "";
   String _access = "";
   List<int> _books = [];
+  String dropdownValue = list.first;
 
   Future<List<Book>> fetchAllBooks() async {
     // Implement your logic to fetch all books from the database
@@ -94,7 +97,6 @@ class _BookListFormPageState extends State<BookListFormPage> {
                             },
                           ),
                         ),
-
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextFormField(
@@ -118,45 +120,75 @@ class _BookListFormPageState extends State<BookListFormPage> {
                             },
                           ),
                         ),
-                        
+                        Text("Who can see this?"),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: DropdownButtonFormField<String>(
-                            decoration: InputDecoration(
-                              hintText: "Who can see this list?",
-                              labelText: "Access",
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                            ),
-                            value: _access,
-                            items: [
-                              DropdownMenuItem(
-                                value: "public",
-                                child: const Text("Public"),
-                              ),
-                              DropdownMenuItem(
-                                value: "private",
-                                child: const Text("Private"),
-                              ),
-                            ],
-                            onChanged: (String? value) {
+                          child: DropdownMenu<String>(
+                            initialSelection: list.first,
+                            onSelected: (String? value) {
+                              // ketika user select an item
                               setState(() {
-                                _access = value!;
+                                dropdownValue = value!;
                               });
                             },
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty) {
-                                return "Access cannot be empty!";
-                              }
-                              return null;
-                            },
+                            dropdownMenuEntries: list.map<DropdownMenuEntry<String>>((String value) {
+                              return DropdownMenuEntry<String>(value: value, label: value);
+                            }).toList(),
                           ),
-                        ),                        
+                        ),
+
                         
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.indigo),
+                              ),
+                              onPressed: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  // Kirim ke Django dan tunggu respons
+                                  final response = await request.postJson(
+                                      "https://literaland-c07-tk.pbp.cs.ui.ac.id/rankingBuku/create_booklist_flutter/",
+                                      jsonEncode(<String, dynamic>{
+                                        'name': _name,
+                                        'description': _description,
+                                        'access': _access,
+                                        'books':
+                                            _books, // belum bener sesuaiin sama books yang diambil harusnya
+                                      }));
+
+                                  if (response['status'] == 'success') {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                      content: Text(
+                                          "Produk baru berhasil disimpan!"),
+                                    ));
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              BookListsPage()),
+                                    );
+                                  } else {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                      content: Text(
+                                          "Terdapat kesalahan, silakan coba lagi."),
+                                    ));
+                                  }
+                                }
+                              },
+                              child: const Text(
+                                "Save",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ),
                       ]),
-                    
-                    
                 ),
               );
             }
