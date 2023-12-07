@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:litera_land_mobile/collections/screens/detail_book.dart';
+import 'package:litera_land_mobile/collections/screens/mycollection.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +15,7 @@ class CollectionFormModal extends StatefulWidget {
   final int max_page;
   final int bookId;
   int collectionId;
+  bool isInCollection;
 
   CollectionFormModal({
     Key? key,
@@ -24,6 +26,7 @@ class CollectionFormModal extends StatefulWidget {
     required this.is_edit,
     required this.bookId,
     this.collectionId = -1,
+    this.isInCollection = false,
   }) : super(key: key);
 
   @override
@@ -142,10 +145,50 @@ class _CollectionFormModalState extends State<CollectionFormModal> {
                           content: Text("Progress baru berhasil disimpan!"),
                         ));
                         Navigator.of(context).pop();
+                        if (widget.isInCollection) {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => const CollectionPage(),
+                            ),
+                          );
+                        } else {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => BookDetailPage(
+                                bookId: widget.bookId,
+                                isFromCollection: true,
+                              ),
+                            ),
+                          );
+                        }
+                      } else {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content:
+                              Text("Terdapat kesalahan, silakan coba lagi."),
+                        ));
+                      }
+                    } else {
+                      String url =
+                          "https://literaland-c07-tk.pbp.cs.ui.ac.id/collections/create_flutter/${widget.bookId}/";
+                      var data = jsonEncode(<String, String>{
+                        'rating': _rating.toString(),
+                        'current_page': _page.toString(),
+                        'status_baca': _status.toString(),
+                      });
+                      final response = await request.postJson(url, data);
+                      if (response['status'] == 'success') {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content:
+                              Text("Buku berhasil disimpan di daftar koleksi!"),
+                        ));
+                        Navigator.of(context).pop();
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
                             builder: (context) => BookDetailPage(
                               bookId: widget.bookId,
+                              isFromCollection: false,
                             ),
                           ),
                         );
@@ -156,7 +199,7 @@ class _CollectionFormModalState extends State<CollectionFormModal> {
                               Text("Terdapat kesalahan, silakan coba lagi."),
                         ));
                       }
-                    } else {}
+                    }
                   }
                 },
                 child: const Text('Simpan'),

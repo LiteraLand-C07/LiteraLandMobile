@@ -18,7 +18,7 @@ Nama Aplikasi : LiteraLand
 
 Dalam era digital saat ini, membaca buku tetap menjadi salah satu kegiatan yang paling digemari banyak orang. Namun, dengan begitu banyaknya koleksi buku yang ada, seringkali pembaca kesulitan dalam mengingat halaman terakhir yang mereka baca, serta berdiskusi dan menyimpan buku favorit. Oleh karena itu, dibutuhkan sebuah aplikasi yang mampu menyediakan solusi untuk permasalahan tersebut.
 
-LiteraLand adalah aplikasi koleksi buku yang memungkinkan pengguna untuk membaca buku. Aplikasi ini menyediakan fitur yang dapat mendukung kegiatan membaca pengguna seperti sistem pencarian dan koleksi buku, pembatas buku, serta forum diskusi/review. Selain itu, aplikasi ini juga memungkinkan untuk membuat ranking buku sesuai personalisasi masing-masing.
+LiteraLand adalah aplikasi koleksi buku yang membantu pengguna dalam kegiatan membaca buku. Aplikasi ini menyediakan fitur yang dapat mendukung kegiatan membaca pengguna seperti sistem pencarian dan koleksi buku, pembatas buku, serta forum diskusi/review. Selain itu, aplikasi ini juga memungkinkan untuk membuat ranking buku sesuai personalisasi masing-masing.
 
 ## :file_folder: Daftar Modul yang Akan Diimplementasikan :file_folder:
 

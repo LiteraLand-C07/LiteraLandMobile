@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:litera_land_mobile/Main/widgets/bottom_navbar.dart';
@@ -10,7 +12,10 @@ import 'package:http/http.dart' as http;
 
 class BookDetailPage extends StatefulWidget {
   final int bookId;
-  const BookDetailPage({Key? key, required this.bookId}) : super(key: key);
+  bool isFromCollection;
+  BookDetailPage(
+      {Key? key, required this.bookId, this.isFromCollection = false})
+      : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -60,9 +65,15 @@ class _BookDetailPageState extends State<BookDetailPage> {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => const CollectionPage()),
-              );
+              if (widget.isFromCollection) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CollectionPage()),
+                );
+              } else {
+                Navigator.pop(context);
+              }
             },
           ),
         ),
