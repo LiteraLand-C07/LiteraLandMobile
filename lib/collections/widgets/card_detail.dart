@@ -1,7 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
-
 import 'package:flutter/material.dart';
-import 'package:litera_land_mobile/Discuss/screens/review.dart';
 import 'package:litera_land_mobile/collections/models/detail_book.dart';
 import 'package:litera_land_mobile/collections/widgets/form_collection.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -159,12 +157,15 @@ class _DetailBookWidgetState extends State<DetailBookWidget> {
                                         .green), // Ubah warna tombol menjadi hijau
                                 onPressed: () {
                                   _showFormModal(
-                                    context,
-                                    widget.book.pageCount,
-                                    snapshot.data[0]["fields"]["rating"],
-                                    snapshot.data[0]["fields"]["current_page"],
-                                    snapshot.data[0]["fields"]["status_baca"],
-                                  );
+                                      context,
+                                      widget.book.pageCount,
+                                      0,
+                                      0,
+                                      "PR",
+                                      "Add to Collection",
+                                      false,
+                                      widget.idBook,
+                                      -1);
                                 },
                                 child: const Text('Add to collection',
                                     style: TextStyle(
@@ -183,8 +184,11 @@ class _DetailBookWidgetState extends State<DetailBookWidget> {
                                       snapshot.data[0]["fields"]["rating"],
                                       snapshot.data[0]["fields"]
                                           ["current_page"],
-                                      snapshot.data[0]["fields"]
-                                          ["status_baca"]);
+                                      snapshot.data[0]["fields"]["status_baca"],
+                                      "Edit Collection",
+                                      true,
+                                      widget.idBook,
+                                      snapshot.data[0]["pk"]);
                                 },
                                 child: const Text('Edit collection',
                                     style: TextStyle(
@@ -195,13 +199,7 @@ class _DetailBookWidgetState extends State<DetailBookWidget> {
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors
                                       .blue), // Ubah warna tombol menjadi hijau
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const BookListsPage()));
-                              },
+                              onPressed: () {},
                               child: const Text('Review Book',
                                   style: TextStyle(
                                       color: Colors.white,
@@ -217,18 +215,30 @@ class _DetailBookWidgetState extends State<DetailBookWidget> {
   }
 }
 
-void _showFormModal(BuildContext context, int max_page, int rating, int page,
-    String status_baca) {
+void _showFormModal(
+    BuildContext context,
+    int max_page,
+    int rating,
+    int page,
+    String status_baca,
+    String judul,
+    bool is_edit,
+    int idBook,
+    int collectionId) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: const Text('Input Data'),
+        title: Text(judul),
         content: CollectionFormModal(
-            max_page: max_page,
-            rating: rating,
-            page: page,
-            status_baca: status_baca),
+          max_page: max_page,
+          rating: rating,
+          page: page,
+          status_baca: status_baca,
+          is_edit: is_edit,
+          bookId: idBook,
+          collectionId: collectionId,
+        ),
         actions: <Widget>[
           OutlinedButton(
             onPressed: () {

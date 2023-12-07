@@ -61,7 +61,7 @@ class BookCollectionWidget extends StatelessWidget {
                       backgroundColor:
                           Colors.blue), // Ubah warna tombol menjadi hijau
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => BookDetailPage(

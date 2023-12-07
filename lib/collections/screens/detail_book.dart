@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:litera_land_mobile/Main/widgets/bottom_navbar.dart';
 import 'package:litera_land_mobile/collections/models/detail_book.dart';
+import 'package:litera_land_mobile/collections/screens/mycollection.dart';
 import 'package:litera_land_mobile/collections/widgets/card_detail.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +18,6 @@ class BookDetailPage extends StatefulWidget {
 }
 
 class _BookDetailPageState extends State<BookDetailPage> {
-  
   Future<List<dynamic>> fetchProduct() async {
     final request = context.watch<CookieRequest>();
     final response = await request.get(
@@ -57,6 +57,14 @@ class _BookDetailPageState extends State<BookDetailPage> {
           title: const Text('Book Detail'),
           backgroundColor: const Color.fromARGB(255, 15, 15, 15),
           foregroundColor: Colors.white,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => const CollectionPage()),
+              );
+            },
+          ),
         ),
         bottomNavigationBar: const MyBottomNavigationBar(
           selectedIndex: 2,

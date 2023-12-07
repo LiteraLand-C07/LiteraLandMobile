@@ -1,12 +1,19 @@
-// ignore_for_file: non_constant_identifier_names, library_private_types_in_public_api, sized_box_for_whitespace, must_be_immutable
+// ignore_for_file: non_constant_identifier_names, library_private_types_in_public_api, sized_box_for_whitespace, must_be_immutable, use_build_context_synchronously
 
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:litera_land_mobile/collections/screens/detail_book.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class CollectionFormModal extends StatefulWidget {
   int rating;
   int page;
   String status_baca;
+  final bool is_edit;
   final int max_page;
+  final int bookId;
+  int collectionId;
 
   CollectionFormModal({
     Key? key,
@@ -14,6 +21,9 @@ class CollectionFormModal extends StatefulWidget {
     this.page = 1,
     this.status_baca = 'PR',
     required this.max_page,
+    required this.is_edit,
+    required this.bookId,
+    this.collectionId = -1,
   }) : super(key: key);
 
   @override
@@ -42,6 +52,7 @@ class _CollectionFormModalState extends State<CollectionFormModal> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Container(
         width: double.infinity,
         child: Form(
@@ -57,7 +68,7 @@ class _CollectionFormModalState extends State<CollectionFormModal> {
                 value: _rating.toDouble(),
                 min: 0,
                 max: 10,
-                divisions: 9,
+                divisions: 10,
                 onChanged: (double value) {
                   setState(() {
                     // Update the widget property directly
@@ -114,11 +125,38 @@ class _CollectionFormModalState extends State<CollectionFormModal> {
               ),
               const SizedBox(height: 16),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    // Lakukan sesuatu dengan data yang telah diisi
-                    Navigator.of(context).pop();
-                    _formKey.currentState!.reset();
+                    if (widget.is_edit) {
+                      String url =
+                          "https://literaland-c07-tk.pbp.cs.ui.ac.id/collections/edit_flutter/${widget.collectionId}/";
+                      var data = jsonEncode(<String, String>{
+                        'rating': _rating.toString(),
+                        'current_page': _page.toString(),
+                        'status_baca': _status.toString(),
+                      });
+                      final response = await request.postJson(url, data);
+                      if (response['status'] == 'success') {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("Progress baru berhasil disimpan!"),
+                        ));
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => BookDetailPage(
+                              bookId: widget.bookId,
+                            ),
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content:
+                              Text("Terdapat kesalahan, silakan coba lagi."),
+                        ));
+                      }
+                    } else {}
                   }
                 },
                 child: const Text('Simpan'),
