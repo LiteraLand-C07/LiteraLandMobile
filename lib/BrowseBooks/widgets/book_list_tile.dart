@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:litera_land_mobile/BrowseBooks/models/book.dart'; // Update with correct path
+import 'package:litera_land_mobile/collections/screens/detail_book.dart';
+
 
 class BookListTile extends StatelessWidget {
   final Book book;
@@ -24,8 +26,12 @@ class BookListTile extends StatelessWidget {
         ),
       ),
       onTap: () {
-        // Implement the onTap action here, for example:
-        // Navigator.push(context, MaterialPageRoute(builder: (context) => BookDetailsPage(book: book)));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BookDetailPage(bookId: book.id), // Use your actual DetailBookPage here
+          ),
+        );
       },
       // Other styling and behavior
     );
