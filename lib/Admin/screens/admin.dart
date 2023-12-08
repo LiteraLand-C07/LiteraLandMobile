@@ -1,12 +1,9 @@
 // ignore_for_file: use_build_context_synchronously, non_constant_identifier_names
 
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:pbp_django_auth/pbp_django_auth.dart';
-import 'package:litera_land_mobile/Admin/widgets/inbox.dart';
 import 'package:litera_land_mobile/Admin/widgets/form.dart';
-
+import 'package:litera_land_mobile/Main/widgets/left_drawer.dart';
+import 'package:litera_land_mobile/Main/widgets/bottom_navbar.dart';
 
 class AdminPage extends StatelessWidget {
   const AdminPage({super.key});
@@ -19,7 +16,10 @@ class AdminPage extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 15, 15, 15), // Dark themed AppBar color
         foregroundColor: Colors.white, // Text color for AppBar
       ),
-      // drawer: ,
+      drawer: const LeftDrawer(),
+      bottomNavigationBar: const MyBottomNavigationBar(
+          selectedIndex: 3,
+      ),
 
       body: Flex (
         direction: Axis.horizontal,

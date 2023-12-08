@@ -248,7 +248,13 @@ class _QueueForm extends State<QueueForm> {
                     if (value == null || value.isEmpty) {
                       return "Published Date not valid!";
                     }
-                    return null;
+                    try {
+                      DateTime.parse(value);
+                      return null;
+                    }
+                    catch (e) {
+                      return "Published Date not valid!";
+                    }
                   },
                 ),
               ),
@@ -265,7 +271,7 @@ class _QueueForm extends State<QueueForm> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         final response = await request.postJson(
-                        "'https://literaland-c07-tk.pbp.cs.ui.ac.id/administrator/add-queue/'",
+                        "https://literaland-c07-tk.pbp.cs.ui.ac.id/administrator/add-queue/",
                         jsonEncode(<String, String>{
                             'title': _title,
                             'author': _author,

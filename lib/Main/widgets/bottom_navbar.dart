@@ -6,6 +6,7 @@ import 'package:litera_land_mobile/Main/screens/login.dart';
 import 'package:litera_land_mobile/collections/screens/mycollection.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:litera_land_mobile/Admin/screens/admin.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
   final int selectedIndex;
@@ -51,7 +52,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
 
     // Fungsi untuk melakukan navigasi berdasarkan indeks yang dipilih
     void navigateToPage(int index, bool isLogin) {
-      if (index == 2 && !isLogin) {
+      if ((index == 2 || index == 3) && !isLogin) {
         _showLoginAlert(context);
         return; // Hentikan perpindahan halaman
       }
@@ -79,6 +80,12 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
               MaterialPageRoute(builder: (context) => const CollectionPage()),
               (route) => false);
           break;
+        case 3:
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const AdminPage()),
+              (route) => false);
+          break;
       }
     }
 
@@ -99,6 +106,10 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
         BottomNavigationBarItem(
           icon: Icon(Icons.collections),
           label: 'Collection',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.collections),
+          label: 'Administrator',
         ),
       ],
     );
