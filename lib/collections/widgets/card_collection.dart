@@ -1,6 +1,12 @@
+// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:litera_land_mobile/collections/models/collection.dart';
 import 'package:litera_land_mobile/collections/screens/detail_book.dart';
+import 'package:litera_land_mobile/collections/screens/mycollection.dart';
+import 'package:litera_land_mobile/collections/widgets/form_collection.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class BookCollectionWidget extends StatelessWidget {
   final BookCollection bookCollection;
@@ -61,11 +67,12 @@ class BookCollectionWidget extends StatelessWidget {
                       backgroundColor:
                           Colors.blue), // Ubah warna tombol menjadi hijau
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => BookDetailPage(
                                 bookId: bookCollection.book,
+                                isFromCollection: true,
                               )),
                     );
                   },
@@ -81,7 +88,18 @@ class BookCollectionWidget extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                       backgroundColor:
                           Colors.green), // Ubah warna tombol menjadi hijau
-                  onPressed: () {/* ... */},
+                  onPressed: () {
+                    _showFormModal(
+                        context,
+                        bookCollection.pageCount,
+                        bookCollection.rating,
+                        bookCollection.currentPage,
+                        bookCollection.statusBaca,
+                        "Edit Collection",
+                        true,
+                        bookCollection.book,
+                        bookCollection.pk);
+                  },
                   child: const Text('EDIT',
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold)),
@@ -94,7 +112,28 @@ class BookCollectionWidget extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                       backgroundColor:
                           Colors.red), // Ubah warna tombol menjadi hijau
-                  onPressed: () {/* ... */},
+                  onPressed: () async {
+                    int collectionId = bookCollection.pk;
+                    final request = context.read<CookieRequest>();
+                    String url =
+                        "https://literaland-c07-tk.pbp.cs.ui.ac.id/collections/delete_flutter/$collectionId/";
+                    final response = await request.post(url, "");
+                    if (response['status'] == 'success') {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content:
+                            Text("Buku berhasil dihapus dari daftar koleksi!"),
+                      ));
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => const CollectionPage(),
+                        ),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text("Terdapat kesalahan, silakan coba lagi."),
+                      ));
+                    }
+                  },
                   child: const Text('DELETE',
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold)),
@@ -106,4 +145,42 @@ class BookCollectionWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+void _showFormModal(
+    BuildContext context,
+    int max_page,
+    int rating,
+    int page,
+    String status_baca,
+    String judul,
+    bool is_edit,
+    int idBook,
+    int collectionId) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(judul),
+        content: CollectionFormModal(
+          max_page: max_page,
+          rating: rating,
+          page: page,
+          status_baca: status_baca,
+          is_edit: is_edit,
+          bookId: idBook,
+          collectionId: collectionId,
+          isInCollection: true,
+        ),
+        actions: <Widget>[
+          OutlinedButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // Tutup modal
+            },
+            child: const Text('Batal'),
+          ),
+        ],
+      );
+    },
+  );
 }

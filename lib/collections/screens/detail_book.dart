@@ -1,7 +1,10 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:litera_land_mobile/Main/widgets/bottom_navbar.dart';
 import 'package:litera_land_mobile/collections/models/detail_book.dart';
+import 'package:litera_land_mobile/collections/screens/mycollection.dart';
 import 'package:litera_land_mobile/collections/widgets/card_detail.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +12,10 @@ import 'package:http/http.dart' as http;
 
 class BookDetailPage extends StatefulWidget {
   final int bookId;
-  const BookDetailPage({Key? key, required this.bookId}) : super(key: key);
+  bool isFromCollection;
+  BookDetailPage(
+      {Key? key, required this.bookId, this.isFromCollection = false})
+      : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -56,6 +62,20 @@ class _BookDetailPageState extends State<BookDetailPage> {
           title: const Text('Book Detail'),
           backgroundColor: const Color.fromARGB(255, 15, 15, 15),
           foregroundColor: Colors.white,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              if (widget.isFromCollection) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CollectionPage()),
+                );
+              } else {
+                Navigator.pop(context);
+              }
+            },
+          ),
         ),
         bottomNavigationBar: const MyBottomNavigationBar(
           selectedIndex: 2,
@@ -85,6 +105,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                           child: DetailBookWidget(
                         book: snapshot.data[0],
                         linkCover: snapshot.data[1],
+                        idBook: widget.bookId,
                       )));
                 }
               }
