@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:litera_land_mobile/collections/models/collection.dart';
 import 'package:litera_land_mobile/collections/screens/detail_book.dart';
 import 'package:litera_land_mobile/collections/screens/mycollection.dart';
+import 'package:litera_land_mobile/collections/screens/read_book.dart';
 import 'package:litera_land_mobile/collections/widgets/form_collection.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
@@ -77,6 +78,29 @@ class BookCollectionWidget extends StatelessWidget {
                     );
                   },
                   child: const Text('VIEW',
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold)),
+                ),
+              ),
+              SizedBox(
+                width: 100.0, // Lebar tombol
+                height: 25.0, // Tinggi tombol
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                          Colors.green), // Ubah warna tombol menjadi hijau
+                  onPressed: () {
+                    int idHalaman = bookCollection.book;
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MyCustomWebView(
+                                  title: bookCollection.title,
+                                  selectedUrl:
+                                      "https://literaland-c07-tk.pbp.cs.ui.ac.id/collections/read_book_flutter/$idHalaman/",
+                                )));
+                  },
+                  child: const Text('READ',
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold)),
                 ),

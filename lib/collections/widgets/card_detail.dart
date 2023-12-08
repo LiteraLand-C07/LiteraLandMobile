@@ -9,12 +9,15 @@ class DetailBookWidget extends StatefulWidget {
   final DetailBook book;
   final String linkCover;
   final int idBook;
+  final bool isFromCollection;
 
   const DetailBookWidget(
       {super.key,
       required this.book,
       required this.idBook,
-      this.linkCover = "https://i.imgur.com/CFVTM7y.png"});
+      this.linkCover = "https://i.imgur.com/CFVTM7y.png",
+      this.isFromCollection = false});
+
   @override
   // ignore: library_private_types_in_public_api
   _DetailBookWidgetState createState() => _DetailBookWidgetState();
@@ -165,7 +168,8 @@ class _DetailBookWidgetState extends State<DetailBookWidget> {
                                       "Add to Collection",
                                       false,
                                       widget.idBook,
-                                      -1);
+                                      -1,
+                                      widget.isFromCollection);
                                 },
                                 child: const Text('Add to collection',
                                     style: TextStyle(
@@ -188,7 +192,8 @@ class _DetailBookWidgetState extends State<DetailBookWidget> {
                                       "Edit Collection",
                                       true,
                                       widget.idBook,
-                                      snapshot.data[0]["pk"]);
+                                      snapshot.data[0]["pk"],
+                                      widget.isFromCollection);
                                 },
                                 child: const Text('Edit collection',
                                     style: TextStyle(
@@ -224,7 +229,8 @@ void _showFormModal(
     String judul,
     bool is_edit,
     int idBook,
-    int collectionId) {
+    int collectionId,
+    bool isFromCollection) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -238,6 +244,7 @@ void _showFormModal(
           is_edit: is_edit,
           bookId: idBook,
           collectionId: collectionId,
+          isFromCollection: isFromCollection,
         ),
         actions: <Widget>[
           OutlinedButton(

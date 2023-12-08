@@ -16,6 +16,7 @@ class CollectionFormModal extends StatefulWidget {
   final int bookId;
   int collectionId;
   bool isInCollection;
+  bool isFromCollection;
 
   CollectionFormModal({
     Key? key,
@@ -27,6 +28,7 @@ class CollectionFormModal extends StatefulWidget {
     required this.bookId,
     this.collectionId = -1,
     this.isInCollection = false,
+    this.isFromCollection = false,
   }) : super(key: key);
 
   @override
@@ -156,7 +158,7 @@ class _CollectionFormModalState extends State<CollectionFormModal> {
                             MaterialPageRoute(
                               builder: (context) => BookDetailPage(
                                 bookId: widget.bookId,
-                                isFromCollection: true,
+                                isFromCollection: widget.isFromCollection,
                               ),
                             ),
                           );
@@ -188,7 +190,7 @@ class _CollectionFormModalState extends State<CollectionFormModal> {
                           MaterialPageRoute(
                             builder: (context) => BookDetailPage(
                               bookId: widget.bookId,
-                              isFromCollection: false,
+                              isFromCollection: widget.isFromCollection,
                             ),
                           ),
                         );
