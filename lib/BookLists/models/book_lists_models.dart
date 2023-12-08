@@ -38,6 +38,7 @@ class Fields {
     String description;
     String image;
     List<int> books;
+    int user;
 
     Fields({
         required this.name,
@@ -45,10 +46,12 @@ class Fields {
         required this.description,
         required this.image,
         required this.books,
+        required this.user,
     });
 
     factory Fields.fromJson(Map<String, dynamic> json) => Fields(
         name: json["name"],
+        user: json["user"],
         access: json["access"],
         description: json["description"],
         image: json["image"],
@@ -57,6 +60,7 @@ class Fields {
 
     Map<String, dynamic> toJson() => {
         "name": name,
+        "user": user,
         "access": access,
         "description": description,
         "image": image,
