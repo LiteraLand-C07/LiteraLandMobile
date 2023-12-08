@@ -13,6 +13,7 @@ import 'package:http/http.dart' as http;
 class BookDetailPage extends StatefulWidget {
   final int bookId;
   bool isFromCollection;
+
   BookDetailPage(
       {Key? key, required this.bookId, this.isFromCollection = false})
       : super(key: key);
@@ -106,6 +107,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                         book: snapshot.data[0],
                         linkCover: snapshot.data[1],
                         idBook: widget.bookId,
+                        isFromCollection: widget.isFromCollection,
                       )));
                 }
               }
