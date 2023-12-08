@@ -156,8 +156,7 @@ class _BookListFormPageState extends State<BookListFormPage> {
                                         'name': _name,
                                         'description': _description,
                                         'access': _access,
-                                        'books':
-                                            _books, // belum bener sesuaiin sama books yang diambil harusnya
+                                        'books': _books, // belum bener sesuaiin sama books yang diambil harusnya
                                       }));
 
                                   if (response['status'] == 'success') {
