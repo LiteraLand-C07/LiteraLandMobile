@@ -1,6 +1,5 @@
-import 'package:litera_land_mobile/Discuss/models/review_Data.dart';
+import 'package:litera_land_mobile/Discuss/models/review_data.dart';
 import 'package:flutter/material.dart';
-
 
 class ReviewDetailPage extends StatelessWidget {
   final ReviewBook item;
@@ -25,7 +24,8 @@ class ReviewDetailPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     // Jika ada gambar item, tambahkan di sini
-                    Text("name: ${item.fields.reviewerName}", style: Theme.of(context).textTheme.titleLarge),
+                    Text("name: ${item.fields.reviewerName}",
+                        style: Theme.of(context).textTheme.titleLarge),
                     const SizedBox(height: 8),
                     Text("Rating: ${item.fields.starRating}"),
                     const SizedBox(height: 8),
