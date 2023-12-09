@@ -16,158 +16,185 @@ class BookCollectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: const Color.fromARGB(255, 15, 15, 15),
-      child: Column(
-        children: <Widget>[
-          ListTile(
-            leading: const Icon(Icons.book,
-                color: Colors.white), // Ubah warna ikon menjadi putih
-            title: Text(
-              bookCollection.title,
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: Colors.white), // Ubah warna teks menjadi putih
-            ),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const SizedBox(height: 10),
-                Text('Author: ${bookCollection.author}',
-                    style: const TextStyle(
-                        color: Colors.white)), // Ubah warna teks menjadi putih
-                const SizedBox(height: 10),
-                Text('Genre: ${bookCollection.genre}',
-                    style: const TextStyle(
-                        color: Colors.white)), // Ubah warna teks menjadi putih
-                const SizedBox(height: 10),
-                Text(
-                  'Page: ${bookCollection.currentPage}/${bookCollection.pageCount}',
+    return Padding(
+        padding: const EdgeInsets.all(12),
+        child: Card(
+          color: const Color.fromARGB(255, 15, 15, 15),
+          child: Column(
+            children: <Widget>[
+              ListTile(
+                leading: const Icon(Icons.book,
+                    color: Colors.white), // Ubah warna ikon menjadi putih
+                title: Text(
+                  bookCollection.title,
                   style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
                       color: Colors.white), // Ubah warna teks menjadi putih
                 ),
-                const SizedBox(height: 10),
-                Text('Rating: ${bookCollection.rating}/10',
-                    style: const TextStyle(
-                        color: Colors.white)), // Ubah warna teks menjadi puti
-                const SizedBox(height: 10),
-                Text('Status: ${bookCollection.statusBacaDisplay}',
-                    style: const TextStyle(color: Colors.white)),
-                const SizedBox(height: 10), // Ubah warna teks menjadi putih
-              ],
-            ),
-          ),
-          ButtonBar(
-            children: <Widget>[
-              SizedBox(
-                width: 100.0, // Lebar tombol
-                height: 25.0, // Tinggi tombol
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          Colors.blue), // Ubah warna tombol menjadi hijau
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => BookDetailPage(
-                                bookId: bookCollection.book,
-                                isFromCollection: true,
-                              )),
-                    );
-                  },
-                  child: const Text('VIEW',
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold)),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    const SizedBox(height: 10),
+                    Text('Author: ${bookCollection.author}',
+                        style: const TextStyle(
+                            color:
+                                Colors.white)), // Ubah warna teks menjadi putih
+                    const SizedBox(height: 10),
+                    Text('Genre: ${bookCollection.genre}',
+                        style: const TextStyle(
+                            color:
+                                Colors.white)), // Ubah warna teks menjadi putih
+                    const SizedBox(height: 10),
+                    Text(
+                      'Page: ${bookCollection.currentPage}/${bookCollection.pageCount}',
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight:
+                              FontWeight.bold), // Ubah warna teks menjadi putih
+                    ),
+                    const SizedBox(height: 10),
+                    Text('Rating: ${bookCollection.rating}/10',
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight
+                                .bold)), // Ubah warna teks menjadi puti
+                    const SizedBox(height: 10),
+                    Text('Status: ${bookCollection.statusBacaDisplay}',
+                        style: const TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 10), // Ubah warna teks menjadi putih
+                  ],
                 ),
               ),
-              SizedBox(
-                width: 100.0, // Lebar tombol
-                height: 25.0, // Tinggi tombol
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          Colors.green), // Ubah warna tombol menjadi hijau
-                  onPressed: () {
-                    int idHalaman = bookCollection.book;
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
+              const SizedBox(height: 10),
+              Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 12.0,
+                runSpacing: 6.0,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BookDetailPage(
+                              bookId: bookCollection.book,
+                              isFromCollection: true,
+                            ),
+                          ),
+                        );
+                      },
+                      icon:
+                          const Icon(Icons.remove_red_eye, color: Colors.white),
+                      label: const Text(
+                        'View',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                      ),
+                      onPressed: () {
+                        int idHalaman = bookCollection.book;
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
                             builder: (context) => MyCustomWebView(
-                                  title: bookCollection.title,
-                                  selectedUrl:
-                                      "https://literaland-c07-tk.pbp.cs.ui.ac.id/collections/read_book_flutter/$idHalaman/",
-                                )));
-                  },
-                  child: const Text('READ',
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold)),
-                ),
+                              title: bookCollection.title,
+                              selectedUrl:
+                                  "https://literaland-c07-tk.pbp.cs.ui.ac.id/collections/read_book_flutter/$idHalaman/",
+                            ),
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.chrome_reader_mode,
+                          color: Colors.white),
+                      label: const Text(
+                        'Read',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                      ),
+                      onPressed: () {
+                        _showFormModal(
+                          context,
+                          bookCollection.pageCount,
+                          bookCollection.rating,
+                          bookCollection.currentPage,
+                          bookCollection.statusBaca,
+                          "Edit Collection",
+                          true,
+                          bookCollection.book,
+                          bookCollection.pk,
+                        );
+                      },
+                      icon: const Icon(Icons.edit, color: Colors.white),
+                      label: const Text(
+                        'Edit',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                      ),
+                      onPressed: () async {
+                        int collectionId = bookCollection.pk;
+                        final request = context.read<CookieRequest>();
+                        String url =
+                            "https://literaland-c07-tk.pbp.cs.ui.ac.id/collections/delete_flutter/$collectionId/";
+                        final response = await request.post(url, "");
+                        if (response['status'] == 'success') {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text(
+                                "Buku berhasil dihapus dari daftar koleksi!"),
+                          ));
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => const CollectionPage(),
+                            ),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content:
+                                Text("Terdapat kesalahan, silakan coba lagi."),
+                          ));
+                        }
+                      },
+                      icon: const Icon(Icons.delete, color: Colors.white),
+                      label: const Text(
+                        'Delete',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(
-                width: 100.0, // Lebar tombol
-                height: 25.0, // Tinggi tombol
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          Colors.green), // Ubah warna tombol menjadi hijau
-                  onPressed: () {
-                    _showFormModal(
-                        context,
-                        bookCollection.pageCount,
-                        bookCollection.rating,
-                        bookCollection.currentPage,
-                        bookCollection.statusBaca,
-                        "Edit Collection",
-                        true,
-                        bookCollection.book,
-                        bookCollection.pk);
-                  },
-                  child: const Text('EDIT',
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold)),
-                ),
-              ),
-              SizedBox(
-                width: 100.0, // Lebar tombol
-                height: 25.0, // Tinggi tombol
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          Colors.red), // Ubah warna tombol menjadi hijau
-                  onPressed: () async {
-                    int collectionId = bookCollection.pk;
-                    final request = context.read<CookieRequest>();
-                    String url =
-                        "https://literaland-c07-tk.pbp.cs.ui.ac.id/collections/delete_flutter/$collectionId/";
-                    final response = await request.post(url, "");
-                    if (response['status'] == 'success') {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content:
-                            Text("Buku berhasil dihapus dari daftar koleksi!"),
-                      ));
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => const CollectionPage(),
-                        ),
-                      );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("Terdapat kesalahan, silakan coba lagi."),
-                      ));
-                    }
-                  },
-                  child: const Text('DELETE',
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold)),
-                ),
-              ),
+              const SizedBox(height: 12),
             ],
           ),
-        ],
-      ),
-    );
+        ));
   }
 }
 

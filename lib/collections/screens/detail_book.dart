@@ -58,7 +58,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 67, 66, 66),
+        backgroundColor: const Color.fromARGB(255, 37, 36, 36),
         appBar: AppBar(
           title: const Text('Book Detail'),
           backgroundColor: const Color.fromARGB(255, 15, 15, 15),
