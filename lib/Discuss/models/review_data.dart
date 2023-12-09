@@ -35,7 +35,7 @@ class ReviewBook {
 }
 
 class Fields {
-  int? user;
+  int user;
   int book;
   String review;
   String reviewerName;

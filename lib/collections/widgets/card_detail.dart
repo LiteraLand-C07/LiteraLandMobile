@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:flutter/material.dart';
+import 'package:litera_land_mobile/Discuss/screens/review_form.dart';
 import 'package:litera_land_mobile/collections/models/detail_book.dart';
 import 'package:litera_land_mobile/collections/widgets/form_collection.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -204,7 +205,14 @@ class _DetailBookWidgetState extends State<DetailBookWidget> {
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors
                                       .blue), // Ubah warna tombol menjadi hijau
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ItemFormPage(),
+                                    ));
+                              },
                               child: const Text('Review Book',
                                   style: TextStyle(
                                       color: Colors.white,
