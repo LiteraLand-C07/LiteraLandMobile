@@ -5,7 +5,7 @@ import 'package:litera_land_mobile/Discuss/screens/review_detail.dart';
 // import 'package:crimson_chest_mobile/models/product.dart';
 import 'package:litera_land_mobile/Discuss/widget/left_drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:litera_land_mobile/Discuss/models/review_Data.dart';
+import 'package:litera_land_mobile/Discuss/models/review_data.dart';
 
 class ReviewsPage extends StatefulWidget {
   const ReviewsPage({Key? key}) : super(key: key);
