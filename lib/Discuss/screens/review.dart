@@ -31,7 +31,7 @@ class _BookListsPageState extends State<BookListsPage> {
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 67, 66, 66),
         appBar: AppBar(
-          title: const Text('Book Lists'),
+          title: const Text('Review Lists'),
           backgroundColor:
               const Color.fromARGB(255, 15, 15, 15), // Dark themed AppBar color
           foregroundColor: Colors.white, // Text color for AppBar
