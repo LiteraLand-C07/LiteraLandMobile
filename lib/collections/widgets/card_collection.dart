@@ -71,11 +71,11 @@ class BookCollectionWidget extends StatelessWidget {
               Wrap(
                 alignment: WrapAlignment.center,
                 spacing: 12.0,
-                runSpacing: 6.0,
+                runSpacing: 12.0,
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: ElevatedButton.icon(
+                    child: IconButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
                       ),
@@ -92,17 +92,13 @@ class BookCollectionWidget extends StatelessWidget {
                       },
                       icon:
                           const Icon(Icons.remove_red_eye, color: Colors.white),
-                      label: const Text(
-                        'View',
-                        style: TextStyle(color: Colors.white),
-                      ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: ElevatedButton.icon(
+                    child: IconButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
+                        backgroundColor: const Color.fromARGB(255, 197, 82, 75),
                       ),
                       onPressed: () {
                         int idHalaman = bookCollection.book;
@@ -119,15 +115,11 @@ class BookCollectionWidget extends StatelessWidget {
                       },
                       icon: const Icon(Icons.chrome_reader_mode,
                           color: Colors.white),
-                      label: const Text(
-                        'Read',
-                        style: TextStyle(color: Colors.white),
-                      ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: ElevatedButton.icon(
+                    child: IconButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
                       ),
@@ -145,15 +137,11 @@ class BookCollectionWidget extends StatelessWidget {
                         );
                       },
                       icon: const Icon(Icons.edit, color: Colors.white),
-                      label: const Text(
-                        'Edit',
-                        style: TextStyle(color: Colors.white),
-                      ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: ElevatedButton.icon(
+                    child: IconButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red,
                       ),
@@ -183,15 +171,11 @@ class BookCollectionWidget extends StatelessWidget {
                         }
                       },
                       icon: const Icon(Icons.delete, color: Colors.white),
-                      label: const Text(
-                        'Delete',
-                        style: TextStyle(color: Colors.white),
-                      ),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 18),
             ],
           ),
         ));
