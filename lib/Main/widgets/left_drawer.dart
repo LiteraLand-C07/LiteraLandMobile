@@ -13,11 +13,12 @@ class LeftDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Drawer(
+      backgroundColor: const Color.fromARGB(255, 42, 42, 42),
       child: ListView(
         children: [
           const DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.indigo,
+              color: Color.fromARGB(255, 30, 29, 29),
             ),
             child: Column(
               children: [
@@ -46,8 +47,12 @@ class LeftDrawer extends StatelessWidget {
           // Menampilkan item "Login" dan "Register" jika belum login
           if (!request.loggedIn)
             ListTile(
+              iconColor: Colors.white,
               leading: const Icon(Icons.login),
-              title: const Text('Login'),
+              title: const Text(
+                'Login',
+                style: TextStyle(color: Colors.white),
+              ),
               onTap: () {
                 Navigator.pushAndRemoveUntil(
                     context,
@@ -59,8 +64,10 @@ class LeftDrawer extends StatelessWidget {
             ),
           if (!request.loggedIn)
             ListTile(
+              iconColor: Colors.white,
               leading: const Icon(Icons.person_add),
-              title: const Text('Register'),
+              title:
+                  const Text('Register', style: TextStyle(color: Colors.white)),
               onTap: () {
                 Navigator.pushAndRemoveUntil(
                   context,
@@ -74,8 +81,10 @@ class LeftDrawer extends StatelessWidget {
           // Menampilkan item "Logout" jika sudah login
           if (request.loggedIn)
             ListTile(
+              iconColor: Colors.white,
               leading: const Icon(Icons.exit_to_app),
-              title: const Text('Logout'),
+              title:
+                  const Text('Logout', style: TextStyle(color: Colors.white)),
               onTap: () async {
                 final response = await request.logout(
                     "https://literaland-c07-tk.pbp.cs.ui.ac.id/auth/logout/");

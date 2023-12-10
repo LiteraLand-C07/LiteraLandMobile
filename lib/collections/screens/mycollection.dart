@@ -18,6 +18,11 @@ class _CollectionPageState extends State<CollectionPage>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController =
       TabController(length: 5, vsync: this);
+// Define a list of sorting criteria
+  List<String> sortingCriteria = ['Title', 'Rating', 'Page'];
+
+  // Define a variable to hold the selected sorting criterion
+  String selectedSortingCriterion = 'Title';
 
   Future<List<BookCollection>> fetchProduct(String category) async {
     final request = context.watch<CookieRequest>();
@@ -57,15 +62,25 @@ class _CollectionPageState extends State<CollectionPage>
               ],
             );
           } else {
+            // Sort the list based on the selected criterion
+            List<BookCollection> sortedList = snapshot.data;
+            if (selectedSortingCriterion == 'Title') {
+              sortedList.sort((a, b) => a.title.compareTo(b.title));
+            } else if (selectedSortingCriterion == 'Rating') {
+              sortedList.sort((a, b) => b.rating.compareTo(a.rating));
+            } else if (selectedSortingCriterion == 'Page') {
+              sortedList.sort((a, b) => a.currentPage.compareTo(b.currentPage));
+            }
+
             return Padding(
               padding: const EdgeInsets.all(12.0),
               child: ListView.builder(
-                itemCount: snapshot.data!.length,
+                itemCount: sortedList.length,
                 itemBuilder: (context, index) {
                   return Container(
                     margin: const EdgeInsets.all(8.0),
                     child: BookCollectionWidget(
-                      bookCollection: snapshot.data[index],
+                      bookCollection: sortedList[index],
                     ),
                   );
                 },
@@ -87,6 +102,7 @@ class _CollectionPageState extends State<CollectionPage>
         foregroundColor: Colors.white,
         bottom: TabBar(
           indicatorColor: Colors.amberAccent,
+          unselectedLabelColor: Colors.white,
           labelColor: Colors.white,
           isScrollable: true,
           tabs: const [
@@ -98,6 +114,29 @@ class _CollectionPageState extends State<CollectionPage>
           ],
           controller: _tabController,
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: DropdownButton<String>(
+              icon: const Icon(Icons.sort),
+              dropdownColor: Colors.black,
+              iconEnabledColor: Colors.white,
+              value: selectedSortingCriterion,
+              items: sortingCriteria.map((String criterion) {
+                return DropdownMenuItem<String>(
+                  value: criterion,
+                  child: Text(criterion,
+                      style: const TextStyle(color: Colors.white)),
+                );
+              }).toList(),
+              onChanged: (String? newValue) {
+                setState(() {
+                  selectedSortingCriterion = newValue!;
+                });
+              },
+            ),
+          ),
+        ],
       ),
       drawer: const LeftDrawer(),
       bottomNavigationBar: const MyBottomNavigationBar(
