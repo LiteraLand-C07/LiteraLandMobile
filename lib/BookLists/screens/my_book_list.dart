@@ -34,7 +34,7 @@ class _MyBookListsPageState extends State<MyBookListsPage> {
     return listItem;
   }
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 67, 66, 66),
@@ -50,6 +50,7 @@ class _MyBookListsPageState extends State<MyBookListsPage> {
       ),
       body: Column(
         children: [
+
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Row(
@@ -61,21 +62,22 @@ class _MyBookListsPageState extends State<MyBookListsPage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              const MyBookListsPage()), // Replace AddProductPage with your actual page
+                              const MyBookListsPage()), 
                     );
                   },
-                  child: Text('Your List'),
+                  child: const Text('Your List', style: TextStyle(color: Colors.black)),
                 ),
                 ElevatedButton(
                   onPressed: () {
+                    // Handle the second button press
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              const BookListsPage()), // Replace AddProductPage with your actual page
+                              const BookListsPage()), 
                     );
                   },
-                  child: Text('Explore Others'),
+                  child: const Text('Explore Others', style: TextStyle(color: Colors.black)),
                 ),
               ],
             ),
@@ -116,6 +118,7 @@ class _MyBookListsPageState extends State<MyBookListsPage> {
                                 );
                               },
                               child: Card(
+                                color: const Color.fromARGB(255, 15, 15, 15),
                                 elevation: 4,
                                 child: Container(
                                   margin: const EdgeInsets.all(8.0),
@@ -144,7 +147,7 @@ class _MyBookListsPageState extends State<MyBookListsPage> {
                     const BookListFormPage()), // Replace AddProductPage with your actual page
           );
         },
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(255, 170, 187, 204),
         child: const Icon(Icons.add), // Choose a color for the button
       ),
     );
