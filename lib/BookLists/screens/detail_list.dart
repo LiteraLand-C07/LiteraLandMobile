@@ -22,21 +22,21 @@ class DetailPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '${bookList.fields.name}',
-              style: TextStyle(
+              bookList.fields.name,
+              style: const TextStyle(
                 fontSize: 18,
                 color: Colors.white, // Set the RGB color
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
-              '${bookList.fields.description}',
-              style: TextStyle(fontSize: 16, color: Colors.white), // Adjust text color as needed
+              bookList.fields.description,
+              style: const TextStyle(fontSize: 16, color: Colors.white), // Adjust text color as needed
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Expanded(
               child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3, // Adjust the number of columns as needed
                   crossAxisSpacing: 8.0,
                   mainAxisSpacing: 8.0,
