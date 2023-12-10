@@ -2,6 +2,7 @@
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:litera_land_mobile/Discuss/screens/review_form.dart';
 import 'package:litera_land_mobile/collections/models/detail_book.dart';
 import 'package:litera_land_mobile/collections/widgets/form_collection.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -267,7 +268,14 @@ class _DetailBookWidgetState extends State<DetailBookWidget> {
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors
                                       .blue), // Ubah warna tombol menjadi hijau
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ItemFormPage(),
+                                    ));
+                              },
                               label: const Text('Review Book',
                                   style: TextStyle(
                                       color: Colors.white,
