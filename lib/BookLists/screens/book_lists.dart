@@ -62,10 +62,10 @@ class _BookListsPageState extends State<BookListsPage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              const MyBookListsPage()), // Replace AddProductPage with your actual page
+                              const MyBookListsPage()), 
                     );
                   },
-                  child: Text('Your List'),
+                  child: const Text('Your List', style: TextStyle(color: Colors.black)),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -74,10 +74,10 @@ class _BookListsPageState extends State<BookListsPage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              const BookListsPage()), // Replace AddProductPage with your actual page
+                              const BookListsPage()), 
                     );
                   },
-                  child: Text('Explore Others'),
+                  child: const Text('Explore Others', style: TextStyle(color: Colors.black)),
                 ),
               ],
             ),
@@ -118,6 +118,7 @@ class _BookListsPageState extends State<BookListsPage> {
                                 );
                               },
                               child: Card(
+                                color: const Color.fromARGB(255, 15, 15, 15),
                                 elevation: 4,
                                 child: Container(
                                   margin: const EdgeInsets.all(8.0),
@@ -146,7 +147,7 @@ class _BookListsPageState extends State<BookListsPage> {
                     const BookListFormPage()), // Replace AddProductPage with your actual page
           );
         },
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color.fromARGB(255, 170, 187, 204),
         child: const Icon(Icons.add), // Choose a color for the button
       ),
     );
