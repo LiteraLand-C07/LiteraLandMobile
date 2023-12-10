@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
-
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:litera_land_mobile/BrowseBooks/screens/browse_books_page.dart';
 import 'package:litera_land_mobile/Main/widgets/bottom_navbar.dart';
 import 'package:litera_land_mobile/collections/models/detail_book.dart';
 import 'package:litera_land_mobile/collections/screens/mycollection.dart';
@@ -48,7 +48,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
     // melakukan decode response menjadi bentuk json
     var data = jsonDecode(utf8.decode(response2.bodyBytes));
     String item = data["items"][0]["volumeInfo"]["imageLinks"]["thumbnail"];
-    item = item.replaceAll('zoom=1', 'zoom=2');
+    item = item.replaceAll('zoom=1', 'zoom=6');
 
     listItem.add(item);
 
@@ -58,11 +58,12 @@ class _BookDetailPageState extends State<BookDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 67, 66, 66),
+        extendBodyBehindAppBar: true,
+        backgroundColor: const Color.fromARGB(255, 37, 36, 36),
         appBar: AppBar(
-          title: const Text('Book Detail'),
-          backgroundColor: const Color.fromARGB(255, 15, 15, 15),
-          foregroundColor: Colors.white,
+          backgroundColor: Colors.transparent,
+          foregroundColor: Colors.black,
+          elevation: 0.0,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
@@ -73,7 +74,11 @@ class _BookDetailPageState extends State<BookDetailPage> {
                       builder: (context) => const CollectionPage()),
                 );
               } else {
-                Navigator.pop(context);
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const BrowseBooksPage()),
+                );
               }
             },
           ),
@@ -100,15 +105,12 @@ class _BookDetailPageState extends State<BookDetailPage> {
                     ],
                   );
                 } else {
-                  return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                          child: DetailBookWidget(
-                        book: snapshot.data[0],
-                        linkCover: snapshot.data[1],
-                        idBook: widget.bookId,
-                        isFromCollection: widget.isFromCollection,
-                      )));
+                  return DetailBookWidget(
+                    book: snapshot.data[0],
+                    linkCover: snapshot.data[1],
+                    idBook: widget.bookId,
+                    isFromCollection: widget.isFromCollection,
+                  );
                 }
               }
             }));

@@ -40,9 +40,10 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 37, 37, 37),
       appBar: AppBar(
-        title: const Text('Register'),
-        backgroundColor: Colors.indigo,
+        title: const Text('Register Page'),
+        backgroundColor: Colors.black,
         foregroundColor: Colors.white,
       ),
       body: Container(
@@ -50,26 +51,47 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Align(
+              alignment: Alignment.topCenter,
+              child: Text(
+                'Create new Account',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const SizedBox(height: 24.0),
             TextField(
               controller: _usernameController,
               decoration: const InputDecoration(
-                labelText: 'Username',
-              ),
+                  border: OutlineInputBorder(),
+                  labelText: 'Username',
+                  labelStyle: TextStyle(color: Colors.white)),
+              cursorColor: Colors.white,
+              style: const TextStyle(color: Colors.white),
             ),
             const SizedBox(height: 12.0),
             TextField(
               controller: _passwordController,
               decoration: const InputDecoration(
-                labelText: 'Password',
-              ),
+                  border: OutlineInputBorder(),
+                  labelText: 'Password',
+                  labelStyle: TextStyle(color: Colors.white)),
+              cursorColor: Colors.white,
+              style: const TextStyle(color: Colors.white),
               obscureText: true,
             ),
-            const SizedBox(height: 24.0),
+            const SizedBox(height: 12.0),
             TextField(
               controller: _passwordConfirmationController,
               decoration: const InputDecoration(
-                labelText: 'Password Confirmation',
-              ),
+                  border: OutlineInputBorder(),
+                  labelText: 'Password Confirmation',
+                  labelStyle: TextStyle(color: Colors.white)),
+              cursorColor: Colors.white,
+              style: const TextStyle(color: Colors.white),
               obscureText: true,
             ),
             const SizedBox(height: 24.0),
@@ -138,19 +160,27 @@ class _RegisterPageState extends State<RegisterPage> {
                   );
                 }
               },
-              child: const Text('Register'),
+              child: const Text(
+                'Register',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
             const SizedBox(
               height: 24.0,
             ),
-            ElevatedButton(
+            TextButton(
               onPressed: () async {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const LoginPage()),
                 );
               },
-              child: const Text('Login'),
+              child: const Text(
+                'Already Have Account? \n Login',
+                textAlign: TextAlign.center,
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+              ),
             )
           ],
         ),

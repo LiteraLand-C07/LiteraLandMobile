@@ -83,13 +83,16 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
     }
 
     return BottomNavigationBar(
+      backgroundColor: Colors.black,
+      selectedItemColor: Colors.amber,
+      unselectedItemColor: Colors.white,
       currentIndex: currentIndex,
       onTap: (index) {
         navigateToPage(index, request.loggedIn);
       },
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(Icons.collections),
+          icon: Icon(Icons.list),
           label: 'Browse',
         ),
         BottomNavigationBarItem(
@@ -97,7 +100,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
           label: 'Ranking',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.collections),
+          icon: Icon(Icons.collections_bookmark),
           label: 'Collection',
         ),
       ],

@@ -1,6 +1,6 @@
-// ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:litera_land_mobile/BrowseBooks/screens/browse_books_page.dart';
+import 'package:litera_land_mobile/Discuss/screens/review_list.dart';
 import 'package:litera_land_mobile/Main/screens/login.dart';
 import 'package:litera_land_mobile/Main/screens/register.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -13,12 +13,11 @@ class LeftDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Drawer(
-      backgroundColor: const Color.fromARGB(255, 42, 42, 42),
       child: ListView(
         children: [
           const DrawerHeader(
             decoration: BoxDecoration(
-              color: Color.fromARGB(255, 30, 29, 29),
+              color: Colors.indigo,
             ),
             child: Column(
               children: [
@@ -47,12 +46,8 @@ class LeftDrawer extends StatelessWidget {
           // Menampilkan item "Login" dan "Register" jika belum login
           if (!request.loggedIn)
             ListTile(
-              iconColor: Colors.white,
               leading: const Icon(Icons.login),
-              title: const Text(
-                'Login',
-                style: TextStyle(color: Colors.white),
-              ),
+              title: const Text('Login'),
               onTap: () {
                 Navigator.pushAndRemoveUntil(
                     context,
@@ -64,10 +59,8 @@ class LeftDrawer extends StatelessWidget {
             ),
           if (!request.loggedIn)
             ListTile(
-              iconColor: Colors.white,
               leading: const Icon(Icons.person_add),
-              title:
-                  const Text('Register', style: TextStyle(color: Colors.white)),
+              title: const Text('Register'),
               onTap: () {
                 Navigator.pushAndRemoveUntil(
                   context,
@@ -78,33 +71,30 @@ class LeftDrawer extends StatelessWidget {
                 );
               },
             ),
-          // Menampilkan item "Logout" jika sudah login
+          // Menampilkan item "Browse Book" jika sudah login
           if (request.loggedIn)
             ListTile(
-              iconColor: Colors.white,
-              leading: const Icon(Icons.exit_to_app),
-              title:
-                  const Text('Logout', style: TextStyle(color: Colors.white)),
-              onTap: () async {
-                final response = await request.logout(
-                    "https://literaland-c07-tk.pbp.cs.ui.ac.id/auth/logout/");
-                String message = response["message"];
-                if (response['status']) {
-                  String uname = response["username"];
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text("$message Sampai jumpa, $uname."),
-                  ));
-                  Navigator.pushAndRemoveUntil(
+              leading: const Icon(Icons.book),
+              title: const Text('Browse Book'),
+              onTap: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const BrowseBooksPage()),
+                  (route) => false,
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.checklist),
+              title: const Text('Review List'),
+              // Bagian redirection ke Item Page
+              onTap: () {
+                Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const BrowseBooksPage()),
-                    (route) => false,
-                  );
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text(message),
-                  ));
-                }
+                      builder: (context) => const ReviewsPage(),
+                    ));
               },
             ),
         ],
