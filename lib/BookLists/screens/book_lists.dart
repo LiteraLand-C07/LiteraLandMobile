@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:litera_land_mobile/BookLists/screens/book_list_form.dart';
 import 'package:litera_land_mobile/BookLists/screens/detail_list.dart';
@@ -7,7 +6,8 @@ import 'package:litera_land_mobile/BookLists/widgets/book_lists_widget.dart';
 import 'package:litera_land_mobile/Main/widgets/bottom_navbar.dart';
 import 'package:litera_land_mobile/Main/widgets/left_drawer.dart';
 import 'package:litera_land_mobile/BookLists/models/book_lists_models.dart';
-import 'package:http/http.dart' as http;
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class BookListsPage extends StatefulWidget {
   const BookListsPage({Key? key}) : super(key: key);
@@ -18,15 +18,12 @@ class BookListsPage extends StatefulWidget {
 
 class _BookListsPageState extends State<BookListsPage> {
   Future<List<BookLists>> fetchBookLists() async {
-    var url = Uri.parse(
+    final request = context.watch<CookieRequest>();
+    final response = await request.get(
         'https://literaland-c07-tk.pbp.cs.ui.ac.id/rankingBuku/get-book-list-json/');
-    var response =
-        await http.get(url, headers: {"Content-Type": "application/json"});
-
-    var data = jsonDecode(utf8.decode(response.bodyBytes));
 
     List<BookLists> listItem = [];
-    for (var d in data) {
+    for (var d in response) {
       if (d != null) {
         listItem.add(BookLists.fromJson(d));
       }
@@ -137,19 +134,7 @@ class _BookListsPageState extends State<BookListsPage> {
           
           ]
         ), 
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Handle navigation to the page for adding a new product
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    const BookListFormPage()), // Replace AddProductPage with your actual page
-          );
-        },
-        backgroundColor: const Color.fromARGB(255, 170, 187, 204),
-        child: const Icon(Icons.add), // Choose a color for the button
-      ),
+      
     );
   }
 }
