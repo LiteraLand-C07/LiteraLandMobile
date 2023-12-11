@@ -30,6 +30,26 @@ class _BookListsPageState extends State<BookListsPage> {
     return listItem;
   }
 
+  void showLoginAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Peringatan'),
+          content: const Text('Anda harus login untuk mengakses list Anda'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Tutup'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,12 +74,17 @@ class _BookListsPageState extends State<BookListsPage> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              const MyBookListsPage()), 
-                    );
+                    final authProvider = context.read<CookieRequest>();
+                    if (authProvider.loggedIn) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MyBookListsPage(),
+                        ),
+                      );
+                    } else {
+                      showLoginAlert(context);
+                    }
                   },
                   child: const Text('Your List', style: TextStyle(color: Colors.black)),
                 ),
