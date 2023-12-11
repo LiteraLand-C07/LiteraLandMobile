@@ -24,11 +24,16 @@ class _BookListFormPageState extends State<BookListFormPage> {
   final List<int> _books = [];
   String dropdownValue = list.first;
 
-  Future<List<Book>> fetchAllBooks() async {
+  
+
+  @override
+  Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
+    Future<List<Book>> fetchAllBooks() async {
     // Implement your logic to fetch all books from the database
     // For example, you might use an API call or a database query
     // Return a List<Book> based on your data
-    final request = context.watch<CookieRequest>();
+    
     final response = await request.get(
         'https://literaland-c07-tk.pbp.cs.ui.ac.id/authentication/json/');
 
@@ -41,10 +46,6 @@ class _BookListFormPageState extends State<BookListFormPage> {
     return listItem;
   
   }
-
-  @override
-  Widget build(BuildContext context) {
-    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -139,7 +140,7 @@ class _BookListFormPageState extends State<BookListFormPage> {
                           ),
                         ),
 
-                        Text("Add Books"),
+                        const Text("Add Books"),
                         SizedBox(
                           height: 300, // Set a specific height
                           child: ListView.builder(
