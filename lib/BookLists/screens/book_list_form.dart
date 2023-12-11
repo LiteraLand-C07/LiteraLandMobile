@@ -182,7 +182,7 @@ class _BookListFormPageState extends State<BookListFormPage> {
                                 if (_formKey.currentState!.validate()) {
                                   // Kirim ke Django dan tunggu respons
                                   final response = await request.postJson(
-                                      "http://127.0.0.1:8000/rankingBuku/create_booklist_flutter/",
+                                      "https://literaland-c07-tk.pbp.cs.ui.ac.id/rankingBuku/create_booklist_flutter/",
                                       jsonEncode(<String, dynamic>{
                                         'name': _name,
                                         'description': _description,
