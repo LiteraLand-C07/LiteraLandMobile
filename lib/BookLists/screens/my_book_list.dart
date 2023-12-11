@@ -138,16 +138,16 @@ class _MyBookListsPageState extends State<MyBookListsPage> {
 
                                             // Check if the deletion was successful
                                             if (response['status'] == 'success') {
-                                              // Perform any additional actions after successful deletion
-                                              // For example: Show a success message or update the UI
-                                              // Optionally, you can remove the item from the local list
                                               setState(() {
                                                 snapshot.data.removeAt(index);
                                               });
                                             } else {
-                                              // Handle errors, such as displaying an error message
-                                              print(
-                                                  'Failed to delete item. Status code: ${response.statusCode}');
+                                              // ignore: use_build_context_synchronously
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(const SnackBar(
+                                                content:
+                                                    Text("Terdapat kesalahan, silakan coba lagi."),
+                                              ));
                                             }
                                           },
                                           child: Container(
@@ -181,11 +181,11 @@ class _MyBookListsPageState extends State<MyBookListsPage> {
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    const BookListFormPage()), // Replace AddProductPage with your actual page
+                    const BookListFormPage()), 
           );
         },
         backgroundColor: const Color.fromARGB(255, 170, 187, 204),
-        child: const Icon(Icons.add), // Choose a color for the button
+        child: const Icon(Icons.add),
       ),
     );
   }
