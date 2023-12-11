@@ -210,7 +210,7 @@ class _DetailBookWidgetState extends State<DetailBookWidget> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          const ItemFormPage(),
+                                          ItemFormPage(bookId: widget.idBook,),
                                     ));
                               },
                               child: const Text('Review Book',
