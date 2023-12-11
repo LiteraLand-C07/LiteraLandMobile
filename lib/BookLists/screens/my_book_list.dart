@@ -20,7 +20,7 @@ class _MyBookListsPageState extends State<MyBookListsPage> {
   Future<List<BookLists>> fetchBookLists() async {
     final request = context.watch<CookieRequest>();
     final response = await request
-        .get('http://127.0.0.1:8000/rankingBuku/get_my_book_lists/');
+        .get('https://literaland-c07-tk.pbp.cs.ui.ac.id/rankingBuku/get_my_book_lists/');
 
     List<BookLists> listItem = [];
     for (var d in response) {
@@ -134,7 +134,7 @@ class _MyBookListsPageState extends State<MyBookListsPage> {
                                             // Send a delete request to the server
                                             final request = context.read<CookieRequest>();
                                             final response = await request.post(
-                                                'http://127.0.0.1:8000/rankingBuku/delete-booklist-flutter/$id/', "");
+                                                'https://literaland-c07-tk.pbp.cs.ui.ac.id/rankingBuku/delete-booklist-flutter/$id/', "");
 
                                             // Check if the deletion was successful
                                             if (response['status'] == 'success') {
