@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:litera_land_mobile/BookLists/screens/book_list_form.dart';
 import 'package:litera_land_mobile/BookLists/screens/book_lists.dart';
@@ -7,7 +6,8 @@ import 'package:litera_land_mobile/BookLists/widgets/book_lists_widget.dart';
 import 'package:litera_land_mobile/Main/widgets/bottom_navbar.dart';
 import 'package:litera_land_mobile/Main/widgets/left_drawer.dart';
 import 'package:litera_land_mobile/BookLists/models/book_lists_models.dart';
-import 'package:http/http.dart' as http;
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class MyBookListsPage extends StatefulWidget {
   const MyBookListsPage({Key? key}) : super(key: key);
@@ -18,15 +18,13 @@ class MyBookListsPage extends StatefulWidget {
 
 class _MyBookListsPageState extends State<MyBookListsPage> {
   Future<List<BookLists>> fetchBookLists() async {
-    var url = Uri.parse(
+    final request = context.watch<CookieRequest>();
+    final response = await request.get(
         'https://literaland-c07-tk.pbp.cs.ui.ac.id/rankingBuku/get_my_book_lists/');
-    var response =
-        await http.get(url, headers: {"Content-Type": "application/json"});
 
-    var data = jsonDecode(utf8.decode(response.bodyBytes));
 
     List<BookLists> listItem = [];
-    for (var d in data) {
+    for (var d in response) {
       if (d != null) {
         listItem.add(BookLists.fromJson(d));
       }
@@ -34,7 +32,7 @@ class _MyBookListsPageState extends State<MyBookListsPage> {
     return listItem;
   }
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 67, 66, 66),
