@@ -1,10 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:litera_land_mobile/BookLists/models/book_lists_models.dart';
 
 class DetailPage extends StatelessWidget {
   final BookLists bookList;
 
   const DetailPage({Key? key, required this.bookList}) : super(key: key);
+
+  Future<List<String>> fetchBookTitles(List<int> pkList) async {
+    final response = await http.get(
+        Uri.parse('https://literaland-c07-tk.pbp.cs.ui.ac.id/authentication/json/'));
+    if (response.statusCode == 200) {
+      final List<dynamic> data = json.decode(response.body);
+
+      // Check if the data is not empty
+      if (data.isNotEmpty) {
+        final List<String> titles = data
+            .where(
+                (item) => item['fields'] != null && item['fields']['title'] != null && pkList.contains(item['pk']))
+            .map((item) => item['fields']['title'].toString())
+            .toList();
+
+        if (titles.isNotEmpty) {
+          return titles;
+        } else {
+          throw Exception('No valid book titles found in the data for the given primary keys');
+        }
+      } else {
+        throw Exception('Invalid JSON format');
+      }
+    } else {
+      throw Exception('Failed to load book titles');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,26 +63,39 @@ class DetailPage extends StatelessWidget {
               style: const TextStyle(fontSize: 16, color: Colors.white), // Adjust text color as needed
             ),
             const SizedBox(height: 16),
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3, // Adjust the number of columns as needed
-                  crossAxisSpacing: 8.0,
-                  mainAxisSpacing: 8.0,
-                  childAspectRatio: 87 / 130, // Adjust the aspect ratio
+            Card(
+              color: const Color.fromARGB(255, 40, 40, 40),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FutureBuilder<List<String>>(
+                  future: fetchBookTitles(bookList.fields.books),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return const Text('No book titles available.');
+                    } else {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: bookList.fields.books.length,
+                        itemBuilder: (context, index) {
+                          String bookTitle = snapshot.data![index];
+                          return ListTile(
+                            title: Text(
+                              bookTitle,
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                          );
+                        },
+                      );
+                    }
+                  },
                 ),
-                itemCount: bookList.fields.books.length,
-                itemBuilder: (context, index) {
-                  // Assuming bookList.books contains image IDs or paths
-                  int bookId = bookList.fields.books[index];
-                  return Image.network(
-                    // Replace the URL with the actual path or URL for the book image
-                    'https://example.com/book_images/$bookId.jpg',
-                    width: 87,
-                    height: 130,
-                    fit: BoxFit.cover,
-                  );
-                },
               ),
             ),
           ],
