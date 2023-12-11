@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:litera_land_mobile/BookLists/screens/book_list_form.dart';
+import 'package:litera_land_mobile/BookLists/screens/book_lists.dart';
 import 'package:litera_land_mobile/BookLists/screens/detail_list.dart';
-import 'package:litera_land_mobile/BookLists/screens/my_book_list.dart';
 import 'package:litera_land_mobile/BookLists/widgets/book_lists_widget.dart';
 import 'package:litera_land_mobile/Main/widgets/bottom_navbar.dart';
 import 'package:litera_land_mobile/Main/widgets/left_drawer.dart';
@@ -8,18 +9,19 @@ import 'package:litera_land_mobile/BookLists/models/book_lists_models.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
-class BookListsPage extends StatefulWidget {
-  const BookListsPage({Key? key}) : super(key: key);
+class MyBookListsPage extends StatefulWidget {
+  const MyBookListsPage({Key? key}) : super(key: key);
   @override
   // ignore: library_private_types_in_public_api
-  _BookListsPageState createState() => _BookListsPageState();
+  _MyBookListsPageState createState() => _MyBookListsPageState();
 }
 
-class _BookListsPageState extends State<BookListsPage> {
+class _MyBookListsPageState extends State<MyBookListsPage> {
   Future<List<BookLists>> fetchBookLists() async {
     final request = context.watch<CookieRequest>();
     final response = await request.get(
-        'https://literaland-c07-tk.pbp.cs.ui.ac.id/rankingBuku/get-book-list-json/');
+        'https://literaland-c07-tk.pbp.cs.ui.ac.id/rankingBuku/get_my_book_lists/');
+
 
     List<BookLists> listItem = [];
     for (var d in response) {
@@ -133,7 +135,19 @@ class _BookListsPageState extends State<BookListsPage> {
           
           ]
         ), 
-      
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Handle navigation to the page for adding a new product
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    const BookListFormPage()), // Replace AddProductPage with your actual page
+          );
+        },
+        backgroundColor: const Color.fromARGB(255, 170, 187, 204),
+        child: const Icon(Icons.add), // Choose a color for the button
+      ),
     );
   }
 }
