@@ -70,6 +70,8 @@ class Fields {
         publishedDate: DateTime.parse(json["published_date"]),
     );
 
+  get book => null;
+
     Map<String, dynamic> toJson() => {
         "user": user,
         "title": title,

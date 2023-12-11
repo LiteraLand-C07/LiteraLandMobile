@@ -7,7 +7,8 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
 class LeftDrawer extends StatelessWidget {
-  const LeftDrawer({super.key});
+  final int bookId;
+  const LeftDrawer({super.key, required this.bookId});
 
   @override
   Widget build(BuildContext context) {
@@ -85,18 +86,20 @@ class LeftDrawer extends StatelessWidget {
                 );
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.checklist),
-              title: const Text('Review List'),
-              // Bagian redirection ke Item Page
-              onTap: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ReviewsPage(),
-                    ));
-              },
-            ),
+          ListTile(
+            leading: const Icon(Icons.checklist),
+            title: const Text('Review List'),
+            // Bagian redirection ke Item Page
+            onTap: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ReviewsPage(
+                      bookId: bookId,
+                    ),
+                  ));
+            },
+          ),
         ],
       ),
     );

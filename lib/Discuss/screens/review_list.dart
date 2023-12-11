@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:litera_land_mobile/Discuss/models/review_data.dart';
 
 class ReviewsPage extends StatefulWidget {
-  const ReviewsPage({Key? key}) : super(key: key);
+  final int bookId;
+  const ReviewsPage({Key? key, required this.bookId}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -17,24 +18,27 @@ class ReviewsPage extends StatefulWidget {
 
 class _ItemsPageState extends State<ReviewsPage> {
   Future<List<ReviewBook>> fetchProduct() async {
+    // Update the URL to point to the book_reviews endpoint with the specific bookId
     var url = Uri.parse(
-        'https://literaland-c07-tk.pbp.cs.ui.ac.id/forumDiskusi/show_json/');
+        'https://literaland-c07-tk.pbp.cs.ui.ac.id/forumDiskusi/json_id/${widget.bookId}/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},
     );
 
-    // melakukan decode response menjadi bentuk json
-    var data = jsonDecode(utf8.decode(response.bodyBytes));
-
-    // melakukan konversi data json menjadi object Product
-    List<ReviewBook> listProduct = [];
-    for (var d in data) {
-      if (d != null) {
-        listProduct.add(ReviewBook.fromJson(d));
+    // Check if the response is successful and decode the JSON
+    if (response.statusCode == 200) {
+      var data = jsonDecode(utf8.decode(response.bodyBytes));
+      List<ReviewBook> listProduct = [];
+      for (var d in data) {
+        if (d != null) {
+          listProduct.add(ReviewBook.fromJson(d));
+        }
       }
+      return listProduct;
+    } else {
+      throw Exception('Failed to load reviews');
     }
-    return listProduct;
   }
 
   @override
@@ -43,7 +47,9 @@ class _ItemsPageState extends State<ReviewsPage> {
       appBar: AppBar(
         title: const Text('Reviews'),
       ),
-      drawer: const LeftDrawer(),
+      drawer: LeftDrawer(
+        bookId: widget.bookId,
+      ),
       body: FutureBuilder(
         future: fetchProduct(),
         builder: (context, AsyncSnapshot snapshot) {
@@ -80,9 +86,9 @@ class _ItemsPageState extends State<ReviewsPage> {
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                           const SizedBox(height: 8),
-                          Text("Price: \$${product.fields.starRating}"),
+                          Text("Rating: \$${product.fields.starRating}"),
                           const SizedBox(height: 8),
-                          Text("Description: ${product.fields.review}"),
+                          Text("Review: ${product.fields.review}"),
                         ],
                       ),
                     ),
