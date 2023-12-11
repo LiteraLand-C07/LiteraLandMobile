@@ -83,17 +83,22 @@ class _ItemFormPageState extends State<ItemFormPage> {
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                 ),
+                keyboardType: TextInputType
+                    .number, // Memastikan hanya angka yang dapat diinput
                 onChanged: (String? value) {
-                  setState(() {
-                    _starRating = int.parse(value!);
-                  });
+                  if (value != null && value.isNotEmpty) {
+                    setState(() {
+                      _starRating = int.parse(value);
+                    });
+                  }
                 },
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     return "Rating cannot be empty!";
                   }
-                  if (int.tryParse(value) == null) {
-                    return "Rating must be a valid integer!";
+                  final numValue = int.tryParse(value);
+                  if (numValue == null || numValue < 1 || numValue > 5) {
+                    return "Rating must be a number between 1 and 5";
                   }
                   return null;
                 },
