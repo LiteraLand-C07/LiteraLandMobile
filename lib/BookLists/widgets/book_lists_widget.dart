@@ -11,7 +11,6 @@ class BookListsWidget extends StatelessWidget {
     return ListTile(
       title: Text(bookList.fields.name, style: const TextStyle(color: Colors.white)),
       subtitle: Text(bookList.fields.description, style: const TextStyle(color: Colors.white)),
-      // Other styling and behavior
     );
   }
 }
