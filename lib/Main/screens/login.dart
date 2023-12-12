@@ -109,8 +109,8 @@ class _LoginPageState extends State<LoginPage> {
                 // Cek kredensial
                 // Untuk menyambungkan Android emulator dengan Django pada localhost,
                 // gunakan URL http://10.0.2.2/
-                final response = await request.login(
-                    "https://literaland-c07-tk.pbp.cs.ui.ac.id/auth/login/", {
+                final response =
+                    await request.login("https://literaland-c07-tk.pbp.cs.ui.ac.id/auth/login/", {
                   'username': username,
                   'password': password,
                 });

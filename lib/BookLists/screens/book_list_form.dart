@@ -23,19 +23,21 @@ class _BookListFormPageState extends State<BookListFormPage> {
   String _access = "";
   final List<int> _books = [];
   String dropdownValue = list.first;
-
-  
+  late Future<List<Book>> _booksFuture;
 
   @override
-  Widget build(BuildContext context) {
-    final request = context.watch<CookieRequest>();
-    Future<List<Book>> fetchAllBooks() async {
+  void initState() {
+    super.initState();
+    _booksFuture = fetchAllBooks();
+  }
+
+  Future<List<Book>> fetchAllBooks() async {
     // Implement your logic to fetch all books from the database
     // For example, you might use an API call or a database query
     // Return a List<Book> based on your data
-    
-    final response = await request.get(
-        'https://literaland-c07-tk.pbp.cs.ui.ac.id/authentication/json/');
+    final request = context.read<CookieRequest>();
+    final response = await request
+        .get('https://literaland-c07-tk.pbp.cs.ui.ac.id/authentication/json/');
 
     List<Book> listItem = [];
     for (var d in response) {
@@ -44,8 +46,11 @@ class _BookListFormPageState extends State<BookListFormPage> {
       }
     }
     return listItem;
-  
   }
+
+  @override
+  Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -59,7 +64,7 @@ class _BookListFormPageState extends State<BookListFormPage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: FutureBuilder<List<Book>>(
-          future: fetchAllBooks(),
+          future: _booksFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();
@@ -139,7 +144,6 @@ class _BookListFormPageState extends State<BookListFormPage> {
                             }).toList(),
                           ),
                         ),
-
                         const Text("Add Books"),
                         SizedBox(
                           height: 300, // Set a specific height
@@ -178,15 +182,15 @@ class _BookListFormPageState extends State<BookListFormPage> {
                                 if (_formKey.currentState!.validate()) {
                                   // Kirim ke Django dan tunggu respons
                                   final response = await request.postJson(
-                                      "https://literaland-c07-tk.pbp.cs.ui.ac.id/create_booklist_flutter/",
+                                      "https://literaland-c07-tk.pbp.cs.ui.ac.id/rankingBuku/create_booklist_flutter/",
                                       jsonEncode(<String, dynamic>{
                                         'name': _name,
                                         'description': _description,
                                         'access': _access,
-                                        'books': _books, // belum bener sesuaiin sama books yang diambil harusnya
+                                        'books':
+                                            _books, // belum bener sesuaiin sama books yang diambil harusnya
                                       }));
-
-                                  if (response['status'] == 'success') {
+                                  if (response['name'] == _name) {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(const SnackBar(
                                       content: Text(
@@ -195,7 +199,8 @@ class _BookListFormPageState extends State<BookListFormPage> {
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => const BookListsPage()),
+                                          builder: (context) =>
+                                              const BookListsPage()),
                                     );
                                   } else {
                                     ScaffoldMessenger.of(context)
