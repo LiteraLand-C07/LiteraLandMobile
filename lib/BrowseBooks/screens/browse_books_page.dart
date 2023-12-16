@@ -11,9 +11,9 @@ import 'package:litera_land_mobile/Main/widgets/left_drawer.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart'; // Import the BookListTile widget
 
-
 class BrowseBooksPage extends StatefulWidget {
-  const BrowseBooksPage({super.key});
+  final String query;
+  const BrowseBooksPage({super.key, this.query = ""});
 
   @override
   BrowseBooksPageState createState() => BrowseBooksPageState();
@@ -40,7 +40,8 @@ class BrowseBooksPageState extends State<BrowseBooksPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Login Required'),
-          content: const Text('You need to be logged in to view your requests.'),
+          content:
+              const Text('You need to be logged in to view your requests.'),
           actions: <Widget>[
             TextButton(
               child: const Text('Close'),
@@ -51,7 +52,8 @@ class BrowseBooksPageState extends State<BrowseBooksPage> {
             TextButton(
               child: const Text('Login'),
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPage()));
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const LoginPage()));
                 // Assuming LoginPage() is the page where the user can login.
               },
             ),
@@ -78,6 +80,32 @@ class BrowseBooksPageState extends State<BrowseBooksPage> {
         ),
         body: Column(
           children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              child: TextField(
+                cursorColor: Colors.white,
+                style: const TextStyle(color: Colors.white),
+                onSubmitted: (String value) {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            BrowseBooksPage(query: value.toLowerCase())),
+                  );
+                },
+                decoration: InputDecoration(
+                  labelText: 'Search Book by Title',
+                  labelStyle: const TextStyle(color: Colors.white),
+                  border: OutlineInputBorder(
+                      // Remove the border
+                      borderRadius: BorderRadius.circular(10.0)),
+                  filled: true,
+                  fillColor: Colors.black,
+                  prefixIcon: const Icon(Icons.search),
+                  prefixIconColor: Colors.white,
+                ),
+              ),
+            ),
             Expanded(
               child: FutureBuilder<List<Book>>(
                 future: fetchBooks(),
@@ -93,9 +121,12 @@ class BrowseBooksPageState extends State<BrowseBooksPage> {
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
                         final book = snapshot.data![index];
-                        return BookListTile(
-                          book: book,
-                        );
+                        if (book.title.toLowerCase().contains(widget.query)) {
+                          return BookListTile(
+                            book: book,
+                          );
+                        }
+                        return const SizedBox.shrink();
                       },
                     );
                   }
@@ -104,7 +135,8 @@ class BrowseBooksPageState extends State<BrowseBooksPage> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(
-                  vertical: 16.0, horizontal: 16.0), // Menambahkan padding horizontal
+                  vertical: 16.0,
+                  horizontal: 16.0), // Menambahkan padding horizontal
               child: Column(
                 children: [
                   const Text(
@@ -122,11 +154,13 @@ class BrowseBooksPageState extends State<BrowseBooksPage> {
                       textStyle: const TextStyle(fontSize: 16),
                     ),
                     onPressed: () {
-                      final request = Provider.of<CookieRequest>(context, listen: false);
+                      final request =
+                          Provider.of<CookieRequest>(context, listen: false);
                       if (request.loggedIn) {
                         showRequestBookDialog(context, request);
                       } else {
-                        _showLoginAlert(context);  // Menampilkan dialog atau mengarahkan ke halaman login
+                        _showLoginAlert(
+                            context); // Menampilkan dialog atau mengarahkan ke halaman login
                       }
                     },
                     child: const Text('Request new book'),
@@ -140,9 +174,11 @@ class BrowseBooksPageState extends State<BrowseBooksPage> {
                     ),
                     onPressed: () {
                       // Menggunakan Navigator untuk berpindah ke halaman UserRequestsPage
-                      if(request.loggedIn){
+                      if (request.loggedIn) {
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => UserRequestsPage(request: Provider.of<CookieRequest>(context, listen: false)),
+                          builder: (context) => UserRequestsPage(
+                              request: Provider.of<CookieRequest>(context,
+                                  listen: false)),
                         ));
                       } else {
                         _showLoginAlert(context);

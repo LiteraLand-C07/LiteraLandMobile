@@ -35,9 +35,9 @@ class ReviewBook {
 }
 
 class Fields {
-  int? user;
+  int user;
   int book;
-  String review;
+  String? review;
   String reviewerName;
   DateTime date;
   int starRating;

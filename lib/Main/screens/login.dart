@@ -39,27 +39,66 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 37, 37, 37),
       appBar: AppBar(
-        title: const Text('Login'),
+        title: const Text('Login Page'),
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
       ),
       body: Container(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Align(
+              alignment: Alignment.topCenter,
+              child: Text(
+                'Login',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            const Align(
+              alignment: Alignment.topCenter,
+              child: Text(
+                'Sig in to continue',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const SizedBox(height: 8.0), // Adjust spacing
+            Image.asset(
+              'assets/logo.png', // Replace with the actual path to your logo
+              width: 150, // Adjust the width as needed
+              height: 150, // Adjust the height as needed
+            ),
+            const SizedBox(height: 10.0),
             TextField(
               controller: _usernameController,
               decoration: const InputDecoration(
-                labelText: 'Username',
-              ),
+                  border: OutlineInputBorder(),
+                  labelText: 'Username',
+                  labelStyle: TextStyle(color: Colors.white)),
+              cursorColor: Colors.white,
+              style: const TextStyle(color: Colors.white),
             ),
             const SizedBox(height: 12.0),
             TextField(
               controller: _passwordController,
               decoration: const InputDecoration(
-                labelText: 'Password',
-              ),
+                  border: OutlineInputBorder(),
+                  labelText: 'Password',
+                  labelStyle: TextStyle(color: Colors.white)),
+              cursorColor: Colors.white,
               obscureText: true,
+              style: const TextStyle(color: Colors.white),
             ),
             const SizedBox(height: 24.0),
             ElevatedButton(
@@ -70,8 +109,8 @@ class _LoginPageState extends State<LoginPage> {
                 // Cek kredensial
                 // Untuk menyambungkan Android emulator dengan Django pada localhost,
                 // gunakan URL http://10.0.2.2/
-                final response = await request.login(
-                    "https://literaland-c07-tk.pbp.cs.ui.ac.id/auth/login/", {
+                final response =
+                    await request.login("https://literaland-c07-tk.pbp.cs.ui.ac.id/auth/login/", {
                   'username': username,
                   'password': password,
                 });
@@ -113,17 +152,25 @@ class _LoginPageState extends State<LoginPage> {
                   );
                 }
               },
-              child: const Text('Login'),
+              child: const Text(
+                'Login',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
             const SizedBox(height: 24.0),
-            ElevatedButton(
+            TextButton(
               onPressed: () async {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const RegisterPage()),
                 );
               },
-              child: const Text('Register'),
+              child: const Text(
+                "Don't have an account yet? \nRegister",
+                textAlign: TextAlign.center,
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+              ),
             )
           ],
         ),

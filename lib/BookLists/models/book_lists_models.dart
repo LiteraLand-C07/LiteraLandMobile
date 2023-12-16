@@ -34,19 +34,19 @@ class BookLists {
 
 class Fields {
     String name;
-    int user;
     String access;
     String description;
     String image;
     List<int> books;
+    int user;
 
     Fields({
         required this.name,
-        required this.user,
         required this.access,
         required this.description,
         required this.image,
         required this.books,
+        required this.user,
     });
 
     factory Fields.fromJson(Map<String, dynamic> json) => Fields(

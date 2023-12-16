@@ -1,10 +1,12 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:litera_land_mobile/BookLists/screens/detail_list.dart';
+import 'package:litera_land_mobile/BookLists/screens/my_book_list.dart';
 import 'package:litera_land_mobile/BookLists/widgets/book_lists_widget.dart';
 import 'package:litera_land_mobile/Main/widgets/bottom_navbar.dart';
 import 'package:litera_land_mobile/Main/widgets/left_drawer.dart';
 import 'package:litera_land_mobile/BookLists/models/book_lists_models.dart';
-import 'package:http/http.dart' as http;
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class BookListsPage extends StatefulWidget {
   const BookListsPage({Key? key}) : super(key: key);
@@ -15,20 +17,37 @@ class BookListsPage extends StatefulWidget {
 
 class _BookListsPageState extends State<BookListsPage> {
   Future<List<BookLists>> fetchBookLists() async {
-    var url = Uri.parse(
-        'https://literaland-c07-tk.pbp.cs.ui.ac.id/rankingBuku/get-book-lists-json/');
-    var response =
-        await http.get(url, headers: {"Content-Type": "application/json"});
-
-    var data = jsonDecode(utf8.decode(response.bodyBytes));
+    final request = context.watch<CookieRequest>();
+    final response = await request.get(
+        'https://literaland-c07-tk.pbp.cs.ui.ac.id/rankingBuku/get-book-list-json/');
 
     List<BookLists> listItem = [];
-    for (var d in data) {
+    for (var d in response) {
       if (d != null) {
         listItem.add(BookLists.fromJson(d));
       }
     }
     return listItem;
+  }
+
+  void showLoginAlert(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Peringatan'),
+          content: const Text('Anda harus login untuk mengakses list Anda'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Tutup'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -45,42 +64,101 @@ class _BookListsPageState extends State<BookListsPage> {
       bottomNavigationBar: const MyBottomNavigationBar(
         selectedIndex: 1,
       ),
-      body: FutureBuilder(
-          future: fetchBookLists(),
-          builder: (context, AsyncSnapshot snapshot) {
-            if (snapshot.data == null) {
-              return const Center(child: CircularProgressIndicator());
-            } else {
-              if (!snapshot.hasData) {
-                return const Column(
-                  children: [
-                    Text(
-                      "Tidak ada data produk.",
-                      style: TextStyle(color: Color(0xff59A5D8), fontSize: 20),
-                    ),
-                    SizedBox(height: 8),
-                  ],
-                );
-              } else {
-                return Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: ListView.builder(
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (context, index) {
-                      return Card(
-                        elevation: 4,
-                        child: Container(
-                          margin: const EdgeInsets.all(8.0),
-                          child:
-                              BookListsWidget(bookList: snapshot.data[index]),
+      body: Column(
+        children: [
+
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    final authProvider = context.read<CookieRequest>();
+                    if (authProvider.loggedIn) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MyBookListsPage(),
                         ),
                       );
-                    },
-                  ),
-                );
-              }
-            }
-          }),
+                    } else {
+                      showLoginAlert(context);
+                    }
+                  },
+                  child: const Text('Your List', style: TextStyle(color: Colors.black)),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // Handle the second button press
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              const BookListsPage()), 
+                    );
+                  },
+                  child: const Text('Explore Others', style: TextStyle(color: Colors.black)),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: FutureBuilder(
+              future: fetchBookLists(),
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.data == null) {
+                  return const Center(child: CircularProgressIndicator());
+                } else {
+                  if (!snapshot.hasData) {
+                    return const Column(
+                      children: [
+                        Text(
+                          "Tidak ada data produk.",
+                          style: TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                        ),
+                        SizedBox(height: 8),
+                      ],
+                    );
+                  } else {
+                    return Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: ListView.builder(
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                              onTap: () {
+                                // Handle navigation to the detail page for the selected item
+                                // You can replace DetailPage with the actual page you want to navigate to
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        DetailPage(bookList: snapshot.data[index]),
+                                  ),
+                                );
+                              },
+                              child: Card(
+                                color: const Color.fromARGB(255, 15, 15, 15),
+                                elevation: 4,
+                                child: Container(
+                                  margin: const EdgeInsets.all(8.0),
+                                  child: BookListsWidget(
+                                      bookList: snapshot.data[index]),
+                                ),
+                            )
+                          );
+                        },
+                      ),
+                    );
+                  }
+                }
+              }),
+          )
+          
+          ]
+        ), 
+      
     );
   }
 }
