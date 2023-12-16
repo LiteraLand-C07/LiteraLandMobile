@@ -1,32 +1,49 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
+import 'package:litera_land_mobile/Admin/models/book_request.dart';
+import 'package:litera_land_mobile/Admin/widgets/request_card.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
-class Inbox extends StatelessWidget {
-  const Inbox({super.key});
+class Inbox extends StatefulWidget{
+  const Inbox({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.indigo,
-            ),
+  State<Inbox> createState() => _Inbox(); 
+}
 
-            child: Text(
-                  'Inbox',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-          ),
-        ],
-      ),
+class _Inbox extends State<Inbox>{
+  Future<List<BookRequest>> fetchBookRequest() async {
+      final request = context.watch<CookieRequest>();
+      var response = await request.get('https://literaland-c07-tk.pbp.cs.ui.ac.id/administrator/request-json');
+
+      List<BookRequest> list_item = [];
+      for (var d in response) {
+          if (d != null) {
+              list_item.add(BookRequest.fromJson(d));
+          }
+      }
+      return list_item;
+  }
+
+  @override
+  Widget build (BuildContext context){
+    return FutureBuilder(
+      future: fetchBookRequest(),
+      builder: (context, AsyncSnapshot snapshot) {
+        if (!snapshot.hasData || snapshot.data.isEmpty){
+          return const Center (child: Text("Tidak ada book request"));
+        }
+        List<BookRequest> bookRequest = snapshot.data;
+        return ListView.builder(
+          itemCount: bookRequest.length,
+          itemBuilder: (_, index) {
+            return Padding(
+              padding: const EdgeInsets.all(10),
+              child: RequestCard(bookRequest[index]),
+            );
+          }
+        );
+      },
     );
   }
 }

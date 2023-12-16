@@ -80,12 +80,6 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
               MaterialPageRoute(builder: (context) => const CollectionPage()),
               (route) => false);
           break;
-        case 3:
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const AdminPage()),
-              (route) => false);
-          break;
       }
     }
 
@@ -106,10 +100,6 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
         BottomNavigationBarItem(
           icon: Icon(Icons.collections),
           label: 'Collection',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.collections),
-          label: 'Administrator',
         ),
       ],
     );

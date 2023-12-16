@@ -77,6 +77,13 @@ class _LoginPageState extends State<LoginPage> {
                 });
 
                 if (request.loggedIn) {
+                  if (response['isAdmin']){
+                    request.cookies['isAdmin'] = Cookie("isAdmin", "1", null);
+                  }
+                  else {
+                    request.cookies['isAdmin'] = Cookie("isAdmin", "0", null);
+                  }
+
                   String message = response['message'];
                   String uname = response['username'];
                   Navigator.pushReplacement(

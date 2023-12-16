@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
+import 'package:litera_land_mobile/Admin/screens/admin.dart';
 import 'package:litera_land_mobile/BrowseBooks/screens/browse_books_page.dart';
 import 'package:litera_land_mobile/Main/screens/login.dart';
 import 'package:litera_land_mobile/Main/screens/register.dart';
@@ -43,6 +44,20 @@ class LeftDrawer extends StatelessWidget {
               ],
             ),
           ),
+          if (request.loggedIn && request.cookies["isAdmin"]!.value == "1")
+            ListTile(
+              leading: const Icon(Icons.add),
+              title: const Text('Add Books to Database'),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AdminPage(),
+                    ),
+                );
+              },
+            ),
+
           // Menampilkan item "Login" dan "Register" jika belum login
           if (!request.loggedIn)
             ListTile(
@@ -81,6 +96,7 @@ class LeftDrawer extends StatelessWidget {
                     "https://literaland-c07-tk.pbp.cs.ui.ac.id/auth/logout/");
                 String message = response["message"];
                 if (response['status']) {
+                  request.cookies.remove("isAdmin");
                   String uname = response["username"];
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text("$message Sampai jumpa, $uname."),
