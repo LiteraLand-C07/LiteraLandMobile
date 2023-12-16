@@ -6,7 +6,6 @@ import 'package:litera_land_mobile/Main/screens/login.dart';
 import 'package:litera_land_mobile/collections/screens/mycollection.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:litera_land_mobile/Admin/screens/admin.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
   final int selectedIndex;
