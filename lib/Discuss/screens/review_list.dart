@@ -63,7 +63,10 @@ class _ReviewsPageState extends State<ReviewsPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ReviewDetailPage(item: product),
+                        builder: (context) => ReviewDetailPage(
+                          item: product,
+                          bookId: widget.bookId,
+                        ),
                       ),
                     );
                   },
