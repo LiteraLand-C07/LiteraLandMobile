@@ -9,9 +9,8 @@ class BookListsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(bookList.fields.name),
-      subtitle: Text(bookList.fields.description),
-      // Other styling and behavior
+      title: Text(bookList.fields.name, style: const TextStyle(color: Colors.white)),
+      subtitle: Text(bookList.fields.description, style: const TextStyle(color: Colors.white)),
     );
   }
 }
