@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -20,7 +22,7 @@ class RequestCard extends StatelessWidget{
       ),
       child: InkWell(
         child: Padding (
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
           child: Column (
             children: [
               Text(

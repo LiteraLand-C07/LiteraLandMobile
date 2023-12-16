@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:litera_land_mobile/Admin/models/book_queue.dart';
 import 'package:litera_land_mobile/Admin/widgets/queue_card.dart';
@@ -31,14 +33,14 @@ class _QueueList extends State<QueueList>{
       future: fetchBookQueue(),
       builder: (context, AsyncSnapshot snapshot) {
         if (!snapshot.hasData || snapshot.data.isEmpty){
-          return Center (child: Text("Tidak ada book queue"));
+          return const Center (child: Text("Tidak ada book queue"));
         }
         List<BookQueue> bookQueues = snapshot.data;
         return ListView.builder(
           itemCount: bookQueues.length,
           itemBuilder: (_, index) {
             return Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: QueueCard(bookQueues[index]),
             );
           }

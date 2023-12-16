@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:litera_land_mobile/Admin/models/book_queue.dart';
@@ -12,6 +14,7 @@ class QueueDetail extends StatefulWidget{
   final BookQueue bookQueue;
   const QueueDetail(this.bookQueue, {Key? key}) : super(key: key);
 
+  @override
   State<QueueDetail> createState() => _QueueDetail();
 }
 
@@ -52,7 +55,7 @@ class _QueueDetail extends State<QueueDetail>{
                 child: Card(
                   color: Colors.blueGrey,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 50, horizontal: 20),
+                    padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -63,7 +66,7 @@ class _QueueDetail extends State<QueueDetail>{
                               future: getCover(), 
                               builder: (context, AsyncSnapshot snapshot) {
                                 if (snapshot.connectionState == ConnectionState.waiting) {
-                                  return CircularProgressIndicator();
+                                  return const CircularProgressIndicator();
                                 }
 
                                 String cover = snapshot.data;
@@ -77,7 +80,7 @@ class _QueueDetail extends State<QueueDetail>{
                             ),
                             Expanded(
                               child: Padding(
-                                padding: EdgeInsets.only(left: 10),
+                                padding: const EdgeInsets.only(left: 10),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -138,7 +141,7 @@ class _QueueDetail extends State<QueueDetail>{
                                     ),
                                     const SizedBox(height: 10),
                                     Text(
-                                      "${widget.bookQueue.fields.description}",
+                                      widget.bookQueue.fields.description,
                                       style: const TextStyle(
                                         fontSize: 12,
                                         color: Colors.white,
