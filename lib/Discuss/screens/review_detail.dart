@@ -17,7 +17,9 @@ class ReviewDetailPage extends StatelessWidget {
         await http.post(url, body: {'review_id': reviewId.toString()});
 
     if (response.statusCode == 200) {
+      // Handle successful delete
     } else {
+      // Handle failure
     }
   }
 
@@ -26,46 +28,6 @@ class ReviewDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(item.fields.reviewerName),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.delete),
-            onPressed: () {
-              // Show confirmation dialog
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text("Confirm"),
-                    content: const Text(
-                        "Are you sure you want to delete this review?"),
-                    actions: <Widget>[
-                      TextButton(
-                        child: const Text("Cancel"),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      TextButton(
-                          child: const Text("Delete"),
-                          onPressed: () async {
-                            // Close the dialog
-                            await deleteReview(item.pk); // Delete the review
-                            // ignore: use_build_context_synchronously
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ReviewsPage(
-                                        bookId: bookId,
-                                      )),
-                            );
-                          }),
-                    ],
-                  );
-                },
-              );
-            },
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -91,6 +53,45 @@ class ReviewDetailPage extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _showDeleteConfirmationDialog(context),
+        tooltip: 'Delete Review',
+        backgroundColor: Colors.red,
+        child: const Icon(Icons.delete),
+      ),
+    );
+  }
+
+  void _showDeleteConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Confirm"),
+          content: const Text("Are you sure you want to delete this review?"),
+          actions: <Widget>[
+            TextButton(
+              child: const Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+                child: const Text("Delete"),
+                onPressed: () async {
+                  await deleteReview(item.pk); // Delete the review
+                  // ignore: use_build_context_synchronously
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ReviewsPage(
+                              bookId: bookId,
+                            )),
+                  );
+                }),
+          ],
+        );
+      },
     );
   }
 }
