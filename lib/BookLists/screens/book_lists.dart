@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:litera_land_mobile/BookLists/screens/detail_list.dart';
 import 'package:litera_land_mobile/BookLists/screens/my_book_list.dart';
@@ -7,6 +9,7 @@ import 'package:litera_land_mobile/Main/widgets/left_drawer.dart';
 import 'package:litera_land_mobile/BookLists/models/book_lists_models.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 class BookListsPage extends StatefulWidget {
   const BookListsPage({Key? key}) : super(key: key);
@@ -17,12 +20,17 @@ class BookListsPage extends StatefulWidget {
 
 class _BookListsPageState extends State<BookListsPage> {
   Future<List<BookLists>> fetchBookLists() async {
-    final request = context.watch<CookieRequest>();
-    final response = await request.get(
+    var url = Uri.parse(
         'https://literaland-c07-tk.pbp.cs.ui.ac.id/rankingBuku/get-book-list-json/');
+    var response = await http.get(
+      url,
+      headers: {"Content-Type": "application/json"},
+    );
+
+    var data = jsonDecode(utf8.decode(response.bodyBytes));
 
     List<BookLists> listItem = [];
-    for (var d in response) {
+    for (var d in data) {
       if (d != null) {
         listItem.add(BookLists.fromJson(d));
       }
@@ -64,47 +72,46 @@ class _BookListsPageState extends State<BookListsPage> {
       bottomNavigationBar: const MyBottomNavigationBar(
         selectedIndex: 1,
       ),
-      body: Column(
-        children: [
-
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    final authProvider = context.read<CookieRequest>();
-                    if (authProvider.loggedIn) {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const MyBookListsPage(),
-                        ),
-                      );
-                    } else {
-                      showLoginAlert(context);
-                    }
-                  },
-                  child: const Text('Your List', style: TextStyle(color: Colors.black)),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    // Handle the second button press
+      body: Column(children: [
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  final authProvider = context.read<CookieRequest>();
+                  if (authProvider.loggedIn) {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              const BookListsPage()), 
+                        builder: (context) => const MyBookListsPage(),
+                      ),
                     );
-                  },
-                  child: const Text('Explore Others', style: TextStyle(color: Colors.black)),
-                ),
-              ],
-            ),
+                  } else {
+                    showLoginAlert(context);
+                  }
+                },
+                child: const Text('Your List',
+                    style: TextStyle(color: Colors.black)),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  // Handle the second button press
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const BookListsPage()),
+                  );
+                },
+                child: const Text('Explore Others',
+                    style: TextStyle(color: Colors.black)),
+              ),
+            ],
           ),
-          Expanded(
-            child: FutureBuilder(
+        ),
+        Expanded(
+          child: FutureBuilder(
               future: fetchBookLists(),
               builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.data == null) {
@@ -115,7 +122,8 @@ class _BookListsPageState extends State<BookListsPage> {
                       children: [
                         Text(
                           "Tidak ada data produk.",
-                          style: TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                          style:
+                              TextStyle(color: Color(0xff59A5D8), fontSize: 20),
                         ),
                         SizedBox(height: 8),
                       ],
@@ -133,8 +141,8 @@ class _BookListsPageState extends State<BookListsPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                        DetailPage(bookList: snapshot.data[index]),
+                                    builder: (context) => DetailPage(
+                                        bookList: snapshot.data[index]),
                                   ),
                                 );
                               },
@@ -146,19 +154,15 @@ class _BookListsPageState extends State<BookListsPage> {
                                   child: BookListsWidget(
                                       bookList: snapshot.data[index]),
                                 ),
-                            )
-                          );
+                              ));
                         },
                       ),
                     );
                   }
                 }
               }),
-          )
-          
-          ]
-        ), 
-      
+        )
+      ]),
     );
   }
 }
