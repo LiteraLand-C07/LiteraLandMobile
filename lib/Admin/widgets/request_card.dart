@@ -22,7 +22,7 @@ class RequestCard extends StatelessWidget{
       ),
       child: InkWell(
         child: Padding (
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: Column (
             children: [
               Text(
@@ -30,12 +30,16 @@ class RequestCard extends StatelessWidget{
                 textAlign: TextAlign.center,
                 style: const TextStyle(color: Colors.white),
               ),
-              const SizedBox(height: 15),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
+              const SizedBox(height: 20),
+              IconButton(
+                style: IconButton.styleFrom(
                   foregroundColor: Colors.black,
                   backgroundColor: Colors.red,
-                  textStyle: const TextStyle(fontSize: 16),
+                ),
+                icon: const Icon(
+                  Icons.delete,
+                  color: Colors.black,
+                  size: 20,
                 ),
                 onPressed: () async {
                   await request.post(
@@ -46,7 +50,6 @@ class RequestCard extends StatelessWidget{
                   ));
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const AdminPage()));
                 },
-                child: const Text('Delete'),
               ),
             ],
           ),
@@ -100,11 +103,19 @@ class RequestCard extends StatelessWidget{
                         ),
                         const SizedBox(height: 20),
                         Center(
-                          child: ElevatedButton(
+                          child: ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.black,
+                            ),
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            child: const Text('Close'),
+                            icon: const Icon(
+                              Icons.close,
+                              color: Colors.black,
+                              size: 20,
+                            ),
+                            label: const Text('Close'),
                           ),
                         ),
                       ],

@@ -32,11 +32,17 @@ class _AdminPage extends State<AdminPage> {
     final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Books'),
+        title: const Text('Add Books to Database'),
         backgroundColor: const Color.fromARGB(255, 15, 15, 15), // Dark themed AppBar color
         foregroundColor: Colors.white, // Text color for AppBar
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
-      drawer: const LeftDrawer(),
+      backgroundColor: const Color.fromARGB(255, 67, 66, 66),
       endDrawer: const RightDrawer(),
       body: Column(
         children: [
@@ -55,10 +61,14 @@ class _AdminPage extends State<AdminPage> {
                           decoration: InputDecoration(
                             hintText: "Title",
                             labelText: "Title",
+                            hintStyle: const TextStyle(color: Colors.white),
+                            labelStyle: const TextStyle(color: Colors.white),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0),
                             ),
                           ),
+                          cursorColor: Colors.white,
+                          style: const TextStyle(color: Colors.white),
                           onChanged: (String? value) {
                             setState(() {
                               _title = value!;
@@ -79,10 +89,14 @@ class _AdminPage extends State<AdminPage> {
                           decoration: InputDecoration(
                             hintText: "Author",
                             labelText: "Author",
+                            hintStyle: const TextStyle(color: Colors.white),
+                            labelStyle: const TextStyle(color: Colors.white),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0),
                             ),
                           ),
+                          cursorColor: Colors.white,
+                          style: const TextStyle(color: Colors.white),
                           onChanged: (String? value) {
                             setState(() {
                               _author = value!;
@@ -103,10 +117,14 @@ class _AdminPage extends State<AdminPage> {
                           decoration: InputDecoration(
                             hintText: "Publisher",
                             labelText: "Publisher",
+                            labelStyle: const TextStyle(color: Colors.white),
+                            hintStyle: const TextStyle(color: Colors.white),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0),
                             ),
                           ),
+                          cursorColor: Colors.white,
+                          style: const TextStyle(color: Colors.white),
                           onChanged: (String? value) {
                             setState(() {
                               _publisher = value!;
@@ -127,10 +145,14 @@ class _AdminPage extends State<AdminPage> {
                           decoration: InputDecoration(
                             hintText: "Page count",
                             labelText: "Page count",
+                            labelStyle: const TextStyle(color: Colors.white),
+                            hintStyle: const TextStyle(color: Colors.white),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0),
                             ),
                           ),
+                          cursorColor: Colors.white,
+                          style: const TextStyle(color: Colors.white),
                           onChanged: (String? value) {
                             setState(() {
                               _pageCount = int.parse(value!);
@@ -154,10 +176,14 @@ class _AdminPage extends State<AdminPage> {
                           decoration: InputDecoration(
                             hintText: "Description",
                             labelText: "Description",
+                            labelStyle: const TextStyle(color: Colors.white),
+                            hintStyle: const TextStyle(color: Colors.white),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0),
                             ),
                           ),
+                          cursorColor: Colors.white,
+                          style: const TextStyle(color: Colors.white),
                           onChanged: (String? value) {
                             setState(() {
                               _description = value!;
@@ -178,10 +204,14 @@ class _AdminPage extends State<AdminPage> {
                           decoration: InputDecoration(
                             hintText: "Genre",
                             labelText: "Genre",
+                            labelStyle: const TextStyle(color: Colors.white),
+                            hintStyle: const TextStyle(color: Colors.white),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0),
                             ),
                           ),
+                          cursorColor: Colors.white,
+                          style: const TextStyle(color: Colors.white),
                           onChanged: (String? value) {
                             setState(() {
                               _genre = value!;
@@ -202,10 +232,14 @@ class _AdminPage extends State<AdminPage> {
                           decoration: InputDecoration(
                             hintText: "ISBN",
                             labelText: "ISBN",
+                            labelStyle: const TextStyle(color: Colors.white),
+                            hintStyle: const TextStyle(color: Colors.white),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0),
                             ),
                           ),
+                          cursorColor: Colors.white,
+                          style: const TextStyle(color: Colors.white),
                           onChanged: (String? value) {
                             setState(() {
                               _ISBN = value!;
@@ -227,10 +261,14 @@ class _AdminPage extends State<AdminPage> {
                           decoration: InputDecoration(
                             hintText: "Language",
                             labelText: "Language",
+                            labelStyle: const TextStyle(color: Colors.white),
+                            hintStyle: const TextStyle(color: Colors.white),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0),
                             ),
                           ),
+                          cursorColor: Colors.white,
+                          style: const TextStyle(color: Colors.white),
                           onChanged: (String? value) {
                             setState(() {
                               _language = value!;
@@ -251,10 +289,14 @@ class _AdminPage extends State<AdminPage> {
                           decoration: InputDecoration(
                             hintText: "Published Date",
                             labelText: "Published Date",
+                            labelStyle: const TextStyle(color: Colors.white),
+                            hintStyle: const TextStyle(color: Colors.white),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0),
                             ),
                           ),
+                          cursorColor: Colors.white,
+                          style: const TextStyle(color: Colors.white),
                           onChanged: (String? value) {
                             setState(() {
                               _publishedDate = value!;
@@ -280,10 +322,6 @@ class _AdminPage extends State<AdminPage> {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.indigo),
-                            ),
                             onPressed: () async {
                               var url = Uri.parse("https://www.googleapis.com/books/v1/volumes?q=isbn:$_ISBN");
                               var response = await http.get(
@@ -352,8 +390,8 @@ class _AdminPage extends State<AdminPage> {
 
                             },
                             child: const Text(
-                              "Save",
-                              style: TextStyle(color: Colors.white),
+                              'Add Book',
+                              style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),
@@ -362,20 +400,6 @@ class _AdminPage extends State<AdminPage> {
                   ),
                 ),
               )
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black,
-                  backgroundColor: Colors.grey,
-                  textStyle: const TextStyle(fontSize: 16),
-                ),
-              onPressed: () {
-                Navigator.pop(context);
-              }, 
-              child: const Text("Back")
             ),
           )
         ],

@@ -33,7 +33,12 @@ class _QueueList extends State<QueueList>{
       future: fetchBookQueue(),
       builder: (context, AsyncSnapshot snapshot) {
         if (!snapshot.hasData || snapshot.data.isEmpty){
-          return const Center (child: Text("Tidak ada book queue"));
+          return const Center (
+            child: Text(
+              "Tidak ada book queue",
+              style: TextStyle(color: Colors.white),
+            )
+          );
         }
         List<BookQueue> bookQueues = snapshot.data;
         return ListView.builder(
