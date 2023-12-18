@@ -6,8 +6,6 @@ import 'package:litera_land_mobile/Main/widgets/bottom_navbar.dart';
 import 'package:litera_land_mobile/collections/models/detail_book.dart';
 import 'package:litera_land_mobile/collections/screens/mycollection.dart';
 import 'package:litera_land_mobile/collections/widgets/card_detail.dart';
-import 'package:pbp_django_auth/pbp_django_auth.dart';
-import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
 class BookDetailPage extends StatefulWidget {
@@ -25,13 +23,18 @@ class BookDetailPage extends StatefulWidget {
 
 class _BookDetailPageState extends State<BookDetailPage> {
   Future<List<dynamic>> fetchProduct() async {
-    final request = context.watch<CookieRequest>();
-    final response = await request.get(
+    var urlDetail = Uri.parse(
         'https://literaland-c07-tk.pbp.cs.ui.ac.id/collections/get_detail_json/${widget.bookId}/');
+    var response = await http.get(
+      urlDetail,
+      headers: {"Content-Type": "application/json"},
+    );
+
+    var data = jsonDecode(utf8.decode(response.bodyBytes));
 
     // melakukan konversi data json menjadi object Product
     List<dynamic> listItem = [];
-    for (var d in response) {
+    for (var d in data) {
       if (d != null) {
         listItem.add(DetailBook.fromJson(d));
       }
@@ -46,8 +49,8 @@ class _BookDetailPageState extends State<BookDetailPage> {
     );
 
     // melakukan decode response menjadi bentuk json
-    var data = jsonDecode(utf8.decode(response2.bodyBytes));
-    String item = data["items"][0]["volumeInfo"]["imageLinks"]["thumbnail"];
+    var data2 = jsonDecode(utf8.decode(response2.bodyBytes));
+    String item = data2["items"][0]["volumeInfo"]["imageLinks"]["thumbnail"];
     item = item.replaceAll('zoom=1', 'zoom=6');
 
     listItem.add(item);
