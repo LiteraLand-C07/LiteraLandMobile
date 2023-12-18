@@ -36,6 +36,12 @@ class _ItemFormPageState extends State<ItemFormPage> {
         ),
         backgroundColor: const Color.fromARGB(255, 15, 15, 15),
         foregroundColor: Colors.white,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       drawer: LeftDrawer(
         bookId: widget.bookId,
@@ -57,6 +63,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                 ),
+                style: const TextStyle(color: Colors.white),
                 onChanged: (String? value) {
                   setState(() {
                     _reviewerName = value!;
@@ -90,6 +97,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
                 ),
                 keyboardType: TextInputType
                     .number, // Memastikan hanya angka yang dapat diinput
+                style: const TextStyle(color: Colors.white),
                 onChanged: (String? value) {
                   if (value != null && value.isNotEmpty) {
                     setState(() {
@@ -121,6 +129,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                 ),
+                style: const TextStyle(color: Colors.white),
                 onChanged: (String? value) {
                   setState(() {
                     // Menambahkan variabel yang sesuai
