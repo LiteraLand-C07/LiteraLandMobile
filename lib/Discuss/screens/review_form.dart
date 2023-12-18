@@ -26,6 +26,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
     final request = context.watch<CookieRequest>();
 
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 67, 66, 66),
       appBar: AppBar(
         title: const Center(
           child: Text(
@@ -33,7 +34,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        backgroundColor: Colors.indigo.shade900,
+        backgroundColor: const Color.fromARGB(255, 15, 15, 15),
         foregroundColor: Colors.white,
       ),
       drawer: LeftDrawer(
@@ -49,7 +50,9 @@ class _ItemFormPageState extends State<ItemFormPage> {
               child: TextFormField(
                 decoration: InputDecoration(
                   hintText: "Name",
+                  hintStyle: TextStyle(color: Colors.white.withOpacity(0.6)),
                   labelText: "Name",
+                  labelStyle: const TextStyle(color: Colors.white),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -78,7 +81,9 @@ class _ItemFormPageState extends State<ItemFormPage> {
               child: TextFormField(
                 decoration: InputDecoration(
                   hintText: "Rating",
+                  hintStyle: TextStyle(color: Colors.white.withOpacity(0.6)),
                   labelText: "Rating",
+                  labelStyle: const TextStyle(color: Colors.white),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -109,7 +114,9 @@ class _ItemFormPageState extends State<ItemFormPage> {
               child: TextFormField(
                 decoration: InputDecoration(
                   hintText: "Review",
+                  hintStyle: TextStyle(color: Colors.white.withOpacity(0.6)),
                   labelText: "Review",
+                  labelStyle: const TextStyle(color: Colors.white),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),

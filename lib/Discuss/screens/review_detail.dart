@@ -26,8 +26,12 @@ class ReviewDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 67, 66, 66),
       appBar: AppBar(
         title: Text(item.fields.reviewerName),
+        backgroundColor:
+            const Color.fromARGB(255, 15, 15, 15),
+            foregroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
