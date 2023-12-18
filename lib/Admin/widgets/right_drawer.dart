@@ -22,13 +22,14 @@ class _RightDrawer extends State<RightDrawer> {
   Widget build(BuildContext context){
   final request = context.watch<CookieRequest>();
     return Drawer(
+      backgroundColor: const Color.fromARGB(255, 42, 42, 42),
       child: Column(
         children: [
           Container(
             width: double.infinity,
             child: DrawerHeader(
               decoration: const BoxDecoration(
-                color: Colors.blueGrey,
+                color: Color.fromARGB(255, 30, 29, 29),
               ),
               child: Column(
                 children: [
@@ -45,26 +46,38 @@ class _RightDrawer extends State<RightDrawer> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ElevatedButton(
-                        onPressed: !isInbox
-                            ? () {
+                      IconButton(
+                        style: ButtonStyle(
+                          backgroundColor: isInbox? MaterialStateProperty.all(const Color.fromARGB(255, 67, 67, 67)) : MaterialStateProperty.all(const Color.fromARGB(255, 152, 148, 148)),
+                        ),
+                        onPressed: !isInbox? () {
                                 setState(() {
                                   isInbox = true;
                                 });
                               }
                             : null,
-                        child: const Text('Inbox'),
+                        icon: const Icon(
+                          Icons.email,
+                          color: Colors.black,
+                          size: 20,
+                        ),
                       ),
                       const SizedBox(width: 15),
-                      ElevatedButton(
-                        onPressed: isInbox
-                            ? () {
+                      IconButton(
+                        style: ButtonStyle(
+                          backgroundColor: !isInbox? MaterialStateProperty.all(const Color.fromARGB(255, 67, 67, 67)) : MaterialStateProperty.all(const Color.fromARGB(255, 152, 148, 148)),
+                        ),
+                        onPressed: isInbox? () {
                                 setState(() {
                                   isInbox = false;
                                 });
                               }
                             : null,
-                        child: const Text('Queues'),
+                        icon: const Icon(
+                          Icons.queue,
+                          color: Colors.black,
+                          size: 20,
+                        ),
                       ),
                     ],
                   ),
@@ -78,7 +91,7 @@ class _RightDrawer extends State<RightDrawer> {
           if (!isInbox)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
-              child: ElevatedButton(
+              child: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.black,
                     backgroundColor: Colors.green,
@@ -93,7 +106,12 @@ class _RightDrawer extends State<RightDrawer> {
                   ));
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const AdminPage()));
                 }, 
-                child: const Text("Confirm Queue")
+                icon: const Icon(
+                  Icons.check,
+                  color: Colors.black,
+                  size: 20,
+                ),
+                label: const Text("Confirm")
               ),
             )
         ],

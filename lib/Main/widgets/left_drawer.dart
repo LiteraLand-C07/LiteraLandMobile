@@ -45,10 +45,14 @@ class LeftDrawer extends StatelessWidget {
               ],
             ),
           ),
-          if (request.loggedIn && request.cookies["isAdmin"]!.value == "1")
+          if (request.loggedIn && request.cookies.containsKey("isAdmin") && request.cookies["isAdmin"]!.value == "1")
             ListTile(
+              iconColor: Colors.white,
               leading: const Icon(Icons.add),
-              title: const Text('Add Books to Database'),
+              title: const Text(
+                'Add Books to Database',
+                style: TextStyle(color: Colors.white),
+              ),
               onTap: () {
                 Navigator.push(
                     context,

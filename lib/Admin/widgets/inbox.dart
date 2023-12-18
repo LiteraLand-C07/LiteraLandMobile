@@ -33,7 +33,12 @@ class _Inbox extends State<Inbox>{
       future: fetchBookRequest(),
       builder: (context, AsyncSnapshot snapshot) {
         if (!snapshot.hasData || snapshot.data.isEmpty){
-          return const Center (child: Text("Tidak ada book request"));
+          return const Center (
+            child: Text(
+              "Tidak ada book request",
+              style: TextStyle(color: Colors.white),
+            )
+          );
         }
         List<BookRequest> bookRequest = snapshot.data;
         return ListView.builder(

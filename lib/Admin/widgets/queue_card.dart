@@ -23,7 +23,7 @@ class QueueCard extends StatelessWidget{
       ),
       child: InkWell(
         child: Padding (
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: Column (
             children: [
               Text(
@@ -31,12 +31,11 @@ class QueueCard extends StatelessWidget{
                 textAlign: TextAlign.center,
                 style: const TextStyle(color: Colors.white),
               ),
-              const SizedBox(height: 15),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black,
+              const SizedBox(height: 20),
+              IconButton(
+                style: IconButton.styleFrom(
+                  foregroundColor: Colors.white,
                   backgroundColor: Colors.red,
-                  textStyle: const TextStyle(fontSize: 16),
                 ),
                 onPressed: () async {
                   await request.post(
@@ -47,7 +46,11 @@ class QueueCard extends StatelessWidget{
                   ));
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const AdminPage()));
                 },
-                child: const Text('Delete'),
+                icon: const Icon(
+                  Icons.delete,
+                  color: Colors.black,
+                  size: 20,
+                ),
               ),
             ],
           ),
