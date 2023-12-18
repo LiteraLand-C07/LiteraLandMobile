@@ -14,11 +14,12 @@ class LeftDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Drawer(
+      backgroundColor: const Color.fromARGB(255, 42, 42, 42),
       child: ListView(
         children: [
           const DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.indigo,
+              color: Color.fromARGB(255, 30, 29, 29),
             ),
             child: Column(
               children: [
@@ -75,8 +76,12 @@ class LeftDrawer extends StatelessWidget {
           // Menampilkan item "Browse Book" jika sudah login
           if (request.loggedIn)
             ListTile(
+              iconColor: Colors.white,
               leading: const Icon(Icons.book),
-              title: const Text('Browse Book'),
+              title: const Text(
+                'Browse Book',
+                style: TextStyle(color: Colors.white),
+              ),
               onTap: () {
                 Navigator.pushAndRemoveUntil(
                   context,
@@ -87,8 +92,12 @@ class LeftDrawer extends StatelessWidget {
               },
             ),
           ListTile(
+            iconColor: Colors.white,
             leading: const Icon(Icons.checklist),
-            title: const Text('Review List'),
+            title: const Text(
+              'Review List',
+              style: TextStyle(color: Colors.white),
+            ),
             // Bagian redirection ke Item Page
             onTap: () {
               Navigator.pushReplacement(
