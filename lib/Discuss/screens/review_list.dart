@@ -39,8 +39,12 @@ class _ReviewsPageState extends State<ReviewsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 67, 66, 66),
       appBar: AppBar(
         title: const Text('Reviews'),
+        backgroundColor:
+            const Color.fromARGB(255, 15, 15, 15),
+            foregroundColor: Colors.white,
       ),
       drawer: LeftDrawer(
         bookId: widget.bookId,
@@ -63,7 +67,10 @@ class _ReviewsPageState extends State<ReviewsPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ReviewDetailPage(item: product),
+                        builder: (context) => ReviewDetailPage(
+                          item: product,
+                          bookId: widget.bookId,
+                        ),
                       ),
                     );
                   },

@@ -51,7 +51,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
 
     // Fungsi untuk melakukan navigasi berdasarkan indeks yang dipilih
     void navigateToPage(int index, bool isLogin) {
-      if (index == 2 && !isLogin) {
+      if ((index == 2 || index == 3) && !isLogin) {
         _showLoginAlert(context);
         return; // Hentikan perpindahan halaman
       }

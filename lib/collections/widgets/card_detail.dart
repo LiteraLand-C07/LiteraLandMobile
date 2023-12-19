@@ -44,7 +44,7 @@ class _DetailBookWidgetState extends State<DetailBookWidget> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return FutureBuilder(
-        future: fetchProduct(),
+        future: request.loggedIn ? fetchProduct() : Future.value(List.empty()),
         builder: (context, AsyncSnapshot snapshot) {
           return CustomScrollView(
             slivers: [

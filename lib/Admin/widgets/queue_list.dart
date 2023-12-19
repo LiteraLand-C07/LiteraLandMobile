@@ -1,27 +1,27 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:litera_land_mobile/Admin/models/book_request.dart';
-import 'package:litera_land_mobile/Admin/widgets/request_card.dart';
+import 'package:litera_land_mobile/Admin/models/book_queue.dart';
+import 'package:litera_land_mobile/Admin/widgets/queue_card.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
-class Inbox extends StatefulWidget{
-  const Inbox({Key? key}) : super(key: key);
+class QueueList extends StatefulWidget{
+  const QueueList({Key? key}) : super(key: key);
 
   @override
-  State<Inbox> createState() => _Inbox(); 
+  State<QueueList> createState() => _QueueList(); 
 }
 
-class _Inbox extends State<Inbox>{
-  Future<List<BookRequest>> fetchBookRequest() async {
+class _QueueList extends State<QueueList>{
+  Future<List<BookQueue>> fetchBookQueue() async {
       final request = context.watch<CookieRequest>();
-      var response = await request.get('https://literaland-c07-tk.pbp.cs.ui.ac.id/administrator/request-json');
+      var response = await request.get('https://literaland-c07-tk.pbp.cs.ui.ac.id/administrator/queues-json/');
 
-      List<BookRequest> list_item = [];
+      List<BookQueue> list_item = [];
       for (var d in response) {
           if (d != null) {
-              list_item.add(BookRequest.fromJson(d));
+              list_item.add(BookQueue.fromJson(d));
           }
       }
       return list_item;
@@ -30,23 +30,23 @@ class _Inbox extends State<Inbox>{
   @override
   Widget build (BuildContext context){
     return FutureBuilder(
-      future: fetchBookRequest(),
+      future: fetchBookQueue(),
       builder: (context, AsyncSnapshot snapshot) {
         if (!snapshot.hasData || snapshot.data.isEmpty){
           return const Center (
             child: Text(
-              "Tidak ada book request",
+              "Tidak ada book queue",
               style: TextStyle(color: Colors.white),
             )
           );
         }
-        List<BookRequest> bookRequest = snapshot.data;
+        List<BookQueue> bookQueues = snapshot.data;
         return ListView.builder(
-          itemCount: bookRequest.length,
+          itemCount: bookQueues.length,
           itemBuilder: (_, index) {
             return Padding(
               padding: const EdgeInsets.all(10),
-              child: RequestCard(bookRequest[index]),
+              child: QueueCard(bookQueues[index]),
             );
           }
         );

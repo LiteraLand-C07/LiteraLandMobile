@@ -26,6 +26,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
     final request = context.watch<CookieRequest>();
 
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 67, 66, 66),
       appBar: AppBar(
         title: const Center(
           child: Text(
@@ -33,8 +34,14 @@ class _ItemFormPageState extends State<ItemFormPage> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        backgroundColor: Colors.indigo.shade900,
+        backgroundColor: const Color.fromARGB(255, 15, 15, 15),
         foregroundColor: Colors.white,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       drawer: LeftDrawer(
         bookId: widget.bookId,
@@ -49,11 +56,14 @@ class _ItemFormPageState extends State<ItemFormPage> {
               child: TextFormField(
                 decoration: InputDecoration(
                   hintText: "Name",
+                  hintStyle: TextStyle(color: Colors.white.withOpacity(0.6)),
                   labelText: "Name",
+                  labelStyle: const TextStyle(color: Colors.white),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                 ),
+                style: const TextStyle(color: Colors.white),
                 onChanged: (String? value) {
                   setState(() {
                     _reviewerName = value!;
@@ -78,13 +88,16 @@ class _ItemFormPageState extends State<ItemFormPage> {
               child: TextFormField(
                 decoration: InputDecoration(
                   hintText: "Rating",
+                  hintStyle: TextStyle(color: Colors.white.withOpacity(0.6)),
                   labelText: "Rating",
+                  labelStyle: const TextStyle(color: Colors.white),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                 ),
                 keyboardType: TextInputType
                     .number, // Memastikan hanya angka yang dapat diinput
+                style: const TextStyle(color: Colors.white),
                 onChanged: (String? value) {
                   if (value != null && value.isNotEmpty) {
                     setState(() {
@@ -109,11 +122,14 @@ class _ItemFormPageState extends State<ItemFormPage> {
               child: TextFormField(
                 decoration: InputDecoration(
                   hintText: "Review",
+                  hintStyle: TextStyle(color: Colors.white.withOpacity(0.6)),
                   labelText: "Review",
+                  labelStyle: const TextStyle(color: Colors.white),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
                 ),
+                style: const TextStyle(color: Colors.white),
                 onChanged: (String? value) {
                   setState(() {
                     // Menambahkan variabel yang sesuai
